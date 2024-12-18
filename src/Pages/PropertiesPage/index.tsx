@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PropertiesTable } from "../Components/propertiesTable";
-import { getProperties } from "../Store/property/actions";
-import { getPropertiesSelector } from "../Store/property/selectors";
+import { PropertiesTable } from "../../Components/PropertiesTable";
+import { getProperties } from "../../Store/property/actions";
+import { getPropertiesSelector } from "../../Store/property/selectors";
 
-export const PropertiesPage = () => {
+const PropertiesPage = () => {
   const dispatch = useDispatch();
   const properties = useSelector(getPropertiesSelector);
 
@@ -19,3 +19,5 @@ export const PropertiesPage = () => {
     </div>
   );
 };
+
+export default PropertiesPage;

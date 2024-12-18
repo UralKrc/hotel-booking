@@ -8,3 +8,16 @@ export const getProperties = async () => {
     })
     .catch((error) => []);
 };
+
+export const fetchPropertyById = async (id) => {
+  return fetch("./data.json")
+    .then(() => {
+      console.log(data.data);
+      const property = data.data.find(
+        (property) => property.property.id === id
+      );
+      console.log(property);
+      return property ? property.property : null;
+    })
+    .catch((error) => null);
+};
