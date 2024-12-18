@@ -6,22 +6,16 @@ import { useNavigate } from "react-router-dom";
 const items: MenuProps["items"] = [
   {
     label: "Properties",
-    key: 'properties'
+    key: "properties",
   },
 ];
 
 const Navbar: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onClick = () => {
-    navigate('/')
+    navigate("/");
   };
-  return (
-    <Menu
-      onClick={onClick}
-      mode='horizontal'
-      items={items}
-    />
-  );
+  return <Menu onClick={onClick} mode="horizontal" items={items} />;
 };
 
 export default Navbar;

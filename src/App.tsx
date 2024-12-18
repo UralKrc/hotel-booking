@@ -7,7 +7,7 @@ import Navbar from "./Components/common/navbar";
 
 function App() {
   return (
-    <Layout className='layout' style={{ minHeight: "100vh" }}>
+    <Layout className="layout" style={{ minHeight: "100vh" }}>
       <Content>
         <MainRouter />
       </Content>

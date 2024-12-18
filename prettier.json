@@ -1,3 +1,4 @@
 {
-    "ignore": ["**"]
+  "singleQuote": true,
+  "semi": true
 }

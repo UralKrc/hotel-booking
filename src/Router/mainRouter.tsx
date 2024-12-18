@@ -6,10 +6,10 @@ import Navbar from "../Components/common/navbar";
 const MainRouter: React.FC = () => {
   return (
     <BrowserRouter>
-      <Navbar/>
+      <Navbar />
       <Routes>
-        <Route path='/' element={<PropertiesPage />} />
-        <Route path='/property' element={<PropertyPage />} />
+        <Route path="/" element={<PropertiesPage />} />
+        <Route path="/property" element={<PropertyPage />} />
       </Routes>
     </BrowserRouter>
   );

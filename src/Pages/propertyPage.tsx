@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProperties } from "../Store/property/actions";
 import { getPropertiesSelector } from "../Store/property/selectors";
 import { Button } from "antd";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const propertyId = "1YK15JGO";
 
 export const PropertyPage = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const properties = useSelector(getPropertiesSelector);
   const property = properties.filter(
-    (p: { id: any }) => p["id"] === propertyId
+    (p: { id: any }) => p["id"] === propertyId,
   )[0];
 
   console.log({ properties, property });
@@ -23,10 +23,16 @@ export const PropertyPage = () => {
 
   return (
     <div style={{ width: "80%", margin: "auto" }}>
-        <div style={rowStyle}>
+      <div style={rowStyle}>
         <h3>Property</h3>
-        <Button onClick={()=>{navigate('/')}}>Back to properties</Button>
-        </div>
+        <Button
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Back to properties
+        </Button>
+      </div>
       <div
         style={{
           display: "flex",
@@ -46,17 +52,19 @@ export const PropertyPage = () => {
           <span style={bubbleStyle}>Start Rating</span>
           <span style={bubbleStyle}>{property.starRating}</span>
         </div>
-        <div style={{ ...bubbleStyle, display: 'flex', flexDirection: "column" }}>
-          <b style={{margin: '11px 0px'}}>Adress</b>
-          <div style={{...rowStyle, justifyContent: 'space-between'}}>
+        <div
+          style={{ ...bubbleStyle, display: "flex", flexDirection: "column" }}
+        >
+          <b style={{ margin: "11px 0px" }}>Adress</b>
+          <div style={{ ...rowStyle, justifyContent: "space-between" }}>
             <span>City</span>
             <span>{property.city}</span>
           </div>
-          <div style={{...rowStyle, justifyContent: 'space-between'}}>
+          <div style={{ ...rowStyle, justifyContent: "space-between" }}>
             <span>Country</span>
             <span>{property.country}</span>
           </div>
-          <div style={{...rowStyle, justifyContent: 'space-between'}}>
+          <div style={{ ...rowStyle, justifyContent: "space-between" }}>
             <span>Street</span>
             <span>{property.addressLine1}</span>
           </div>
