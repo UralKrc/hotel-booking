@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { ReactNode } from "react";
 import { StyledButton } from "./styles";
 
 interface ButtonProps {
@@ -7,12 +6,12 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-export const Button = ({ children, onClick }: ButtonProps) => {
-  const navigate = useNavigate();
-
+const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
   return (
     <StyledButton data-testid="button" onClick={onClick}>
       {children}
     </StyledButton>
   );
 };
+
+export default Button;

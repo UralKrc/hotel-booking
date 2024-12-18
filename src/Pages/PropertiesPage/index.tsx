@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PropertiesTable } from "../../Components/PropertiesTable";
 import { getProperties } from "../../Store/property/actions";
 import { getPropertiesSelector } from "../../Store/property/selectors";
+import { Container } from "./styles";
 
 const PropertiesPage = () => {
   const dispatch = useDispatch();
@@ -13,10 +14,10 @@ const PropertiesPage = () => {
   }, [dispatch]);
 
   return (
-    <div style={{ width: "80%", margin: "auto" }}>
+    <Container>
       <h3>Properties</h3>
       <PropertiesTable properties={properties} />
-    </div>
+    </Container>
   );
 };
 

@@ -1,21 +1,17 @@
-import { Table } from "antd";
+import { Table, TableProps } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../common/Button";
-
-interface Property {
-  name: string;
-  id: string;
-}
+import { PropertyProps } from "../../Pages/PropertyPage/types";
+import Button from "../common/Button";
 
 interface Properties {
-  properties: Property[];
+  properties: PropertyProps[];
 }
 
 export const PropertiesTable: React.FC<Properties> = ({ properties }) => {
   const navigate = useNavigate();
 
-  const columns = [
+  const columns: TableProps<PropertyProps>["columns"] = [
     {
       title: "Id",
       dataIndex: "id",
@@ -26,7 +22,7 @@ export const PropertiesTable: React.FC<Properties> = ({ properties }) => {
     },
     {
       title: "Actions",
-      render: (_: unknown, record: Property) => (
+      render: (_: unknown, record: PropertyProps) => (
         <Button
           onClick={() => {
             navigate(`/property/${record.id}`);
@@ -38,5 +34,11 @@ export const PropertiesTable: React.FC<Properties> = ({ properties }) => {
     },
   ];
 
-  return <Table dataSource={properties} columns={columns} />;
+  return (
+    <Table
+      dataSource={properties}
+      columns={columns}
+      rowKey={(record) => record.id}
+    />
+  );
 };
