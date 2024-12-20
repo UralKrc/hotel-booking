@@ -1,4 +1,4 @@
-export interface PropertyProps {
+export interface Property {
   id: string;
   addressLine1: string;
   checkInTime: string;
@@ -18,4 +18,15 @@ export interface PropertyProps {
   starRating: number;
   status: boolean;
   timezone: string;
+}
+
+export interface PropertyState {
+  properties: Property[];
+  property: Property | null;
+  loading: boolean;
+  addPropertyStatus: string | null;
+}
+
+export interface RootState {
+  property: PropertyState;
 }

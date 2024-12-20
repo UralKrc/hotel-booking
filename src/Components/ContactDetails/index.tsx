@@ -1,12 +1,14 @@
-import { Card, Row } from "antd";
 import React from "react";
+import { Link } from "react-router-dom";
+import Card from "../common/Card";
+import FlexContainer from "../common/LabeledItemList";
 
 interface AddressDetailsProps {
   city: string;
   country: string;
   addressLine1: string;
-  postcode: string;
-  email: string;
+  postcode?: string;
+  email?: string;
   phoneNumber: string;
   domain: string;
 }
@@ -19,37 +21,43 @@ const ContactDetails: React.FC<AddressDetailsProps> = ({
   email,
   phoneNumber,
   domain,
-}) => (
-  <Card title="Address">
-    <Row>
-      <span>City</span>
-      <span>{city}</span>
-    </Row>
-    <Row>
-      <span>Country</span>
-      <span>{country}</span>
-    </Row>
-    <Row>
-      <span>Street</span>
-      <span>{addressLine1}</span>
-    </Row>
-    <Row>
-      <span>Postcode</span>
-      <span>{postcode}</span>
-    </Row>
-    <Row>
-      <span>Email</span>
-      <span>{email}</span>
-    </Row>
-    <Row>
-      <span>Phone Number</span>
-      <span>{phoneNumber}</span>
-    </Row>
-    <Row>
-      <span>Domain</span>
-      <span>{domain}</span>
-    </Row>
-  </Card>
-);
+}) => {
+  const items = [
+    {
+      title: "City",
+      label: city,
+    },
+    {
+      title: "Country",
+      label: country,
+    },
+    {
+      title: "Street",
+      label: addressLine1,
+    },
+    {
+      title: "Postcode",
+      label: postcode,
+    },
+    {
+      title: "Email",
+      label: email,
+    },
+    {
+      title: "Phone Number",
+      label: phoneNumber,
+    },
+    {
+      title: "Website",
+      label: <Link to={domain}>{domain}</Link>,
+    },
+  ];
+
+  return (
+    <Card title="Address">
+      <FlexContainer items={items} />
+    </Card>
+  );
+};
 
 export default ContactDetails;

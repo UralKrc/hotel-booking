@@ -6,7 +6,7 @@ import Button from "./index";
 test("clicking the button calls the event hanlder once", () => {
   const mockHandler = jest.fn();
 
-  render(<Button onClick={mockHandler}>This is a test text</Button>);
+  render(<Button onClick={mockHandler} text="This is a test text" />);
 
   const button = screen.getByTestId("redirect-button");
   fireEvent.click(button);

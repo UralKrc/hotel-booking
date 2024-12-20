@@ -1,12 +1,9 @@
-import { Carousel } from "antd";
-import React, { ReactNode } from "react";
+import { CarouselProps } from "antd";
+import React from "react";
+import { StyledCarousel } from "./styles";
 
-interface CarouselProps {
-  children: ReactNode;
-}
-
-export const CarouselComponent: React.FC<CarouselProps> = ({ children }) => (
-  <Carousel autoplay>{children}</Carousel>
+export const Carousel: React.FC<CarouselProps> = ({ children }) => (
+  <StyledCarousel>{children}</StyledCarousel>
 );
 
-export default CarouselComponent;
+export default Carousel;

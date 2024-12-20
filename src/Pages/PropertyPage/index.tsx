@@ -1,29 +1,28 @@
+import { Col, Divider, Row } from "antd";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import CheckInOutDetails from "../../Components/CheckInOutDetails";
-import Button from "../../Components/common/Button";
 import Loading from "../../Components/common/Loading";
 import ContactDetails from "../../Components/ContactDetails";
-import DescriptionDetails from "../../Components/DescriptionDetails";
-import PropertyImages from "../../Components/PropertImages";
-import StatusDetails from "../../Components/StatusDetails";
-import { fetchPropertyById } from "../../Store/property/service";
-import { Container } from "./styles";
-import { PropertyProps } from "./types";
+import PropertyHeader from "../../Components/PropertyHeader";
+import PropertyImagesCarousel from "../../Components/PropertyImagesCarousel";
+import PropertyInformation from "../../Components/PropertyInformation";
+import { fetchPropertyById } from "../../Store/property/actions";
+import { getPropertyByIdSelector } from "../../Store/property/selectors";
+import { Container, InnerContainer } from "./styles";
 
 const PropertyPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [property, setProperty] = useState<PropertyProps | null>(null);
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const property = useSelector(getPropertyByIdSelector);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    const getProperty = async () => {
-      const data = await fetchPropertyById(id);
-      setProperty(data);
-    };
-
-    getProperty();
-  }, [id]);
+    if (id) {
+      dispatch(fetchPropertyById(id));
+    }
+  }, [id, dispatch]);
 
   if (!property) {
     return <Loading />;
@@ -31,39 +30,46 @@ const PropertyPage: React.FC = () => {
 
   return (
     <Container>
-      <h3>{property.name}</h3>
-      <Button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Back to properties
-      </Button>
-      <PropertyImages images={property.images} />
-      <ContactDetails
-        city={property.city}
-        country={property.country}
-        addressLine1={property.addressLine1}
-        postcode={property.postcode}
-        email={property.email || ""}
-        phoneNumber={property.phoneNumber || ""}
-        domain={property.domain}
+      <PropertyHeader
+        property={property}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
       />
-      <DescriptionDetails
-        description={property.description}
-        currency={property.currency}
-        rooms={property.rooms}
-        starRating={property.starRating}
-      />
-      <CheckInOutDetails
-        checkInTime={property.checkInTime}
-        checkOutTime={property.checkOutTime}
-      />
-      <StatusDetails
-        status={property.status}
-        isAvailableForPartnerships={property.isAvailableForPartnerships}
-        timezone={property.timezone}
-      />
+      <Divider />
+      {property.images ? (
+        <PropertyImagesCarousel images={property.images} />
+      ) : null}
+      <Divider />
+      <InnerContainer>
+        <Row gutter={[8, 8]}>
+          <Col xs={24} md={8}>
+            <PropertyInformation
+              currency={property.currency}
+              rooms={property.rooms}
+              status={property.status}
+              isAvailableForPartnerships={property.isAvailableForPartnerships}
+            />
+          </Col>
+          <Col xs={24} md={8}>
+            <CheckInOutDetails
+              checkInTime={property.checkInTime}
+              checkOutTime={property.checkOutTime}
+              timezone={property.timezone}
+            />
+          </Col>
+          <Col xs={24} md={8}>
+            <ContactDetails
+              city={property.city}
+              country={property.country}
+              addressLine1={property.addressLine1}
+              postcode={property.postcode}
+              email={property.email || ""}
+              phoneNumber={property.phoneNumber || ""}
+              domain={property.domain}
+            />
+          </Col>
+        </Row>
+      </InnerContainer>
     </Container>
   );
 };
