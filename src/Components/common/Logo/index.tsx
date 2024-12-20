@@ -1,6 +1,7 @@
 import { Flex } from "antd";
 import { Link } from "react-router-dom";
 import { StyledLogo, Subtitle } from "./styles";
+
 const Logo: React.FC = () => {
   return (
     <Flex align="end" gap="small">

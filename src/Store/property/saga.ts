@@ -1,60 +1,94 @@
 import { all, call, fork, put, takeLatest } from "redux-saga/effects";
-import { PayloadAction } from "@reduxjs/toolkit";
 import { Property } from "../types";
 import {
-  fetchPropertyById as fetchPropertyByIdAction,
-  fetchPropertyByIdResponse,
-  getProperties as getPropertiesAction,
-  getPropertiesResponse,
-  removeProperty,
-  removePropertyResponse,
-  editProperty,
+  editPropertyFailure,
+  editPropertyRequest,
   editPropertyResponse,
+  fetchPropertyByIdFailure,
+  fetchPropertyByIdRequest,
+  fetchPropertyByIdResponse,
+  getPropertiesFailure,
+  getPropertiesRequest,
+  getPropertiesResponse,
+  removePropertyFailure,
+  removePropertyRequest,
+  removePropertyResponse,
 } from "./actions";
 import {
+  editProperty,
   fetchPropertyById,
   getProperties,
-  removeProperty as removePropertyService,
-  editProperty as editPropertyService,
+  removeProperty,
 } from "./service";
 
-function* getPropertiesEffect() {
-  const properties: Property[] = yield call(getProperties);
-  yield put(getPropertiesResponse(properties));
+function* getPropertiesEffect(): Generator {
+  try {
+    yield put(getPropertiesRequest());
+    const properties = (yield call(getProperties)) as Property[];
+    yield put(getPropertiesResponse(properties));
+  } catch (error: any) {
+    yield put(getPropertiesFailure(error.message));
+  }
 }
 
-function* fetchPropertyByIdEffect(action: PayloadAction<string>) {
-  const property: Property | null = yield call(
-    fetchPropertyById,
-    action.payload
-  );
-  yield put(fetchPropertyByIdResponse(property));
+function* fetchPropertyByIdEffect(action: {
+  payload: { id: string };
+}): Generator {
+  try {
+    const property = (yield call(
+      fetchPropertyById,
+      action.payload.id
+    )) as Property | null;
+    yield put(fetchPropertyByIdResponse(property));
+  } catch (error) {
+    yield put(
+      fetchPropertyByIdFailure(
+        error instanceof Error ? error.message : "An error occurred"
+      )
+    );
+  }
 }
 
-function* removePropertyEffect(action: PayloadAction<string>) {
-  const id: string = yield call(removePropertyService, action.payload);
-  yield put(removePropertyResponse(id));
+function* removePropertyEffect(action: { payload: string }): Generator {
+  try {
+    const id = (yield call(removeProperty, action.payload)) as string;
+    yield put(removePropertyResponse(id));
+  } catch (error) {
+    yield put(
+      removePropertyFailure(
+        error instanceof Error ? error.message : "An error occurred"
+      )
+    );
+  }
 }
 
-function* editPropertyEffect(action: PayloadAction<Property>) {
-  const property: Property = yield call(editPropertyService, action.payload);
-  yield put(editPropertyResponse(property));
+function* editPropertyEffect(action: { payload: Property }): Generator {
+  try {
+    const property = (yield call(editProperty, action.payload)) as Property;
+    yield put(editPropertyResponse(property));
+  } catch (error) {
+    yield put(
+      editPropertyFailure(
+        error instanceof Error ? error.message : "An error occurred"
+      )
+    );
+  }
 }
 
 function* watchGetProperties() {
-  yield takeLatest(getPropertiesAction.type, getPropertiesEffect);
+  yield takeLatest(getPropertiesRequest.type, getPropertiesEffect);
 }
 
 function* watchFetchPropertyById() {
-  yield takeLatest(fetchPropertyByIdAction.type, fetchPropertyByIdEffect);
+  yield takeLatest(fetchPropertyByIdRequest, fetchPropertyByIdEffect);
 }
 
 function* watchRemoveProperty() {
-  yield takeLatest(removeProperty.type, removePropertyEffect);
+  yield takeLatest(removePropertyRequest, removePropertyEffect);
 }
 
 function* watchEditProperty() {
-  yield takeLatest(editProperty.type, editPropertyEffect);
+  yield takeLatest(editPropertyRequest, editPropertyEffect);
 }
 
 export default function* propertySaga() {

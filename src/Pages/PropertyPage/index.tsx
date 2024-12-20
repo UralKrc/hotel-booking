@@ -2,13 +2,13 @@ import { Col, Divider, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import CheckInOutDetails from "../../Components/CheckInOutDetails";
 import Loading from "../../Components/common/Loading";
-import ContactDetails from "../../Components/ContactDetails";
-import PropertyHeader from "../../Components/PropertyHeader";
-import PropertyImagesCarousel from "../../Components/PropertyImagesCarousel";
-import PropertyInformation from "../../Components/PropertyInformation";
-import { fetchPropertyById } from "../../Store/property/actions";
+import CheckInOutDetails from "../../Components/features/property/CheckInOutDetails";
+import ContactDetails from "../../Components/features/property/ContactDetails";
+import PropertyHeader from "../../Components/features/property/PropertyHeader";
+import PropertyImagesCarousel from "../../Components/features/property/PropertyImagesCarousel";
+import PropertyInformation from "../../Components/features/property/PropertyInformation";
+import { fetchPropertyByIdRequest } from "../../Store/property/actions";
 import { getPropertyByIdSelector } from "../../Store/property/selectors";
 import { Container, InnerContainer } from "./styles";
 
@@ -20,7 +20,7 @@ const PropertyPage: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchPropertyById(id));
+      dispatch(fetchPropertyByIdRequest({ id }));
     }
   }, [id, dispatch]);
 

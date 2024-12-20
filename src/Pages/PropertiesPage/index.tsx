@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PropertiesTable } from "../../Components/PropertiesTable";
-import { getProperties } from "../../Store/property/actions";
+import { PropertiesTable } from "../../Components/features/property/PropertiesTable";
+import { getPropertiesRequest } from "../../Store/property/actions";
 import { getPropertiesSelector } from "../../Store/property/selectors";
 import { Container } from "./styles";
 
@@ -10,7 +10,7 @@ const PropertiesPage = () => {
   const properties = useSelector(getPropertiesSelector);
 
   useEffect(() => {
-    dispatch(getProperties());
+    dispatch(getPropertiesRequest());
   }, [dispatch]);
 
   return (

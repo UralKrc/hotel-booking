@@ -8,5 +8,5 @@ interface StyledButtonProps {
 export const StyledButton = styled(Button).withConfig({
   shouldForwardProp: (propName) => !["withMargin"].includes(propName),
 })<StyledButtonProps>`
-  margin: ${(props) => (props.withMargin ? "1rem 0" : "0")};
+  margin: ${({ withMargin }) => (withMargin ? "1rem 0" : "0")};
 `;

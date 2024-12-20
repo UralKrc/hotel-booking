@@ -1,20 +1,24 @@
 import type { TimePickerProps } from "antd";
-import { TimePicker as AntTimePicker } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import React from "react";
+import { StyledTimePicker } from "./styles";
 
 dayjs.extend(customParseFormat);
 
-const TimePicker: React.FC<TimePickerProps> = ({
+export interface TimePickerComponentProps extends TimePickerProps {
+  fullWidth?: boolean;
+}
+
+const TimePicker: React.FC<TimePickerComponentProps> = ({
   onChange,
-  defaultOpenValue = dayjs("HH:mm"),
+  fullWidth,
 }) => {
   return (
-    <AntTimePicker
+    <StyledTimePicker
       onChange={onChange}
-      defaultOpenValue={defaultOpenValue}
       format="HH:mm"
+      fullWidth={fullWidth}
     />
   );
 };

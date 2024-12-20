@@ -1,9 +1,9 @@
 import { EditOutlined, HomeOutlined } from "@ant-design/icons";
 import { Breadcrumb, Rate } from "antd";
 import React from "react";
-import EditPropertyFormModal from "../../Components/EditPropertyFormModal";
-import { Property } from "../../Store/types";
-import Button from "../common/Button";
+import { Property } from "../../../../Store/types";
+import Button from "../../../common/Button";
+import EditPropertyFormModal from "../EditPropertyFormModal";
 import { Container, Description, StyledFlex, StyledTitle } from "./styles";
 
 interface PropertyHeaderProps {

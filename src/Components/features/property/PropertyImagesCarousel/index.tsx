@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Carousel from "../common/Carousel";
+import Carousel from "../../../common/Carousel";
 import { Container, StyledImage } from "./styles";
 
 interface PropertyImagesCarouselProps {
@@ -16,7 +16,7 @@ const PropertyImagesCarousel: React.FC<PropertyImagesCarouselProps> = ({
 }) => {
   return (
     <Container>
-      <Carousel>
+      <Carousel autoplay>
         {images.map((image) => (
           <Fragment key={image.id}>
             <StyledImage

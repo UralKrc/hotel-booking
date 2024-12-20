@@ -10,6 +10,8 @@ const Modal: React.FC<ModalProps> = ({
   title = "Basic Modal",
 }) => {
   return (
+    // Gives error findDOMNode is deprecated in StrictMode
+    // https://github.com/ant-design/ant-design/issues/27921
     <AntdModal
       title={title}
       open={open}
