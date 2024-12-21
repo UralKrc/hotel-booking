@@ -7,8 +7,6 @@ import { Property } from "../../../../Store/types";
 import {
   checkInOutFields,
   contactDetailsFields,
-  contactFields,
-  propertyBasicFields,
   propertyDetailFields,
 } from "../../../../Utils/formConfig";
 import EditPropertyFormRow from "./EditPropertyFormRow";
@@ -51,7 +49,6 @@ const EditPropertyFormModal: React.FC<EditPropertyFormModalProps> = ({
         onFinish={onFinish}
         initialValues={property}
       >
-        <EditPropertyFormRow fields={propertyBasicFields} />
         <EditPropertyFormRow
           fields={propertyDetailFields}
           handleChange={handleChange}
@@ -64,7 +61,6 @@ const EditPropertyFormModal: React.FC<EditPropertyFormModalProps> = ({
             />
           </Col>
           <Col xs={24}>
-            <EditPropertyFormRow fields={contactFields} />
             <EditPropertyFormRow fields={contactDetailsFields} />
           </Col>
         </Row>

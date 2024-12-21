@@ -28,8 +28,11 @@ export const fetchPropertyByIdThunk = createAsyncThunk<Property | null, string>(
     try {
       const property = await fetchPropertyById(id);
       return property;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
+      return rejectWithValue("An error occurred");
     }
   }
 );
@@ -55,7 +58,7 @@ export const editPropertyThunk = createAsyncThunk<Property, Property>(
     try {
       const updatedProperty = await editProperty(property);
       return updatedProperty;
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof Error) {
         return rejectWithValue(error.message);
       }

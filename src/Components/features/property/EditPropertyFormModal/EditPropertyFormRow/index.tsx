@@ -14,13 +14,13 @@ interface FieldConfig {
 
 interface EditPropertyFormRowProps {
   fields: FieldConfig[];
-  handleChange?: (value: any, field: string) => void;
+  handleChange?: (value: string, field: string) => void;
   gutter?: number;
 }
 
 const getComponent = (
   field: FieldConfig,
-  handleChange?: (value: any, field: string) => void
+  handleChange?: (value: string, field: string) => void
 ) => {
   switch (field.component) {
     case "TextArea":

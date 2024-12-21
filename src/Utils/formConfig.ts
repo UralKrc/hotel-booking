@@ -1,14 +1,10 @@
 import { FieldConfig } from "./types";
 
-// Contact Details Configuration
-export const contactFields: FieldConfig[] = [
+export const contactDetailsFields: FieldConfig[] = [
   { name: "city", label: "City", span: 6 },
   { name: "country", label: "Country", span: 6 },
   { name: "addressLine1", label: "Street", span: 6 },
   { name: "postcode", label: "Postcode", span: 6 },
-];
-
-export const contactDetailsFields: FieldConfig[] = [
   {
     name: "email",
     label: "Email",
@@ -22,8 +18,7 @@ export const contactDetailsFields: FieldConfig[] = [
   { name: "domain", label: "Website", span: 8 },
 ];
 
-// Property Information Configuration
-export const propertyBasicFields: FieldConfig[] = [
+export const propertyDetailFields: FieldConfig[] = [
   {
     name: "name",
     label: "Name",
@@ -36,9 +31,6 @@ export const propertyBasicFields: FieldConfig[] = [
     rules: [{ required: true }],
     component: "TextArea",
   },
-];
-
-export const propertyDetailFields: FieldConfig[] = [
   {
     name: "currency",
     label: "Currency",
