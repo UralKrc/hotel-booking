@@ -1,14 +1,14 @@
 import { Col, Form, Modal, Row } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { editPropertyThunk } from "../../../../Store/property/thunks";
-import { AppDispatch } from "../../../../Store/store";
-import { Property } from "../../../../Types/types";
 import {
   checkInOutFields,
   contactDetailsFields,
   propertyDetailFields,
-} from "../../../../Utils/formConfig";
+} from "../../../../Constants/formConfig";
+import { editPropertyThunk } from "../../../../Store/property/thunks";
+import { AppDispatch } from "../../../../Store/store";
+import { Property } from "../../../../Types/types";
 import EditPropertyFormRow from "./EditPropertyFormRow";
 
 interface EditPropertyFormModalProps {

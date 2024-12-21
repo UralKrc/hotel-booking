@@ -9,13 +9,10 @@ export const contactDetailsFields: FieldConfig[] = [
     name: "email",
     label: "Email",
     span: 8,
-    rules: [
-      { required: true },
-      { type: "email", message: "Please enter a valid email" },
-    ],
+    rules: [{ type: "email", message: "Please enter a valid email" }],
   },
   { name: "phoneNumber", label: "Phone Number", span: 8 },
-  { name: "domain", label: "Website", span: 8 },
+  { name: "domain", label: "Website", span: 8, rules: [{ required: true }] },
 ];
 
 export const propertyDetailFields: FieldConfig[] = [

@@ -14,8 +14,6 @@ const PropertiesPage = () => {
     dispatch(fetchProperties());
   }, [dispatch]);
 
-  console.log("Properties:", properties);
-
   return (
     <Container>
       <h3>Properties</h3>

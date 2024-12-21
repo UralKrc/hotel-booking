@@ -91,7 +91,6 @@ export const generateBreadcrumbItems = (
 ): BreadcrumbProps[] => [
   {
     title: "Properties",
-    icon: "home",
     href: "/",
   },
   {

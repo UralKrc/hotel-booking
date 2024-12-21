@@ -54,7 +54,7 @@ const EditPropertyFormRow: React.FC<EditPropertyFormRowProps> = ({
         <Form.Item
           name={field.name}
           label={field.label}
-          rules={field.rules || [{ required: true }]}
+          rules={field.rules}
           valuePropName={field.component === "Switch" ? "checked" : undefined}
         >
           {getComponent(field, handleChange)}

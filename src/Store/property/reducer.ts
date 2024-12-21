@@ -1,14 +1,15 @@
-import { createSlice, PayloadAction, SerializedError } from "@reduxjs/toolkit";
-import { savePropertiesToLocalStorage } from "./service";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Property, PropertyState } from "../../Types/types";
 import {
-  editPropertyThunk,
   fetchProperties,
   fetchPropertyByIdThunk,
   removePropertyThunk,
+  editPropertyThunk,
 } from "./thunks";
-import { Property, PropertyState } from "../../Types/types";
+import { savePropertiesToLocalStorage } from "./service";
+import { SerializedError } from "@reduxjs/toolkit";
 
-const initialState: PropertyState = {
+export const initialState: PropertyState = {
   properties: [],
   property: null,
   loading: false,

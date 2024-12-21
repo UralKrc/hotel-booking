@@ -38,28 +38,26 @@ export interface ItemProps {
   label: string;
 }
 
-export interface PropertyDetailsProps {
-  currency: string;
-  rooms: number;
-  status: boolean;
-  isAvailableForPartnerships: boolean;
-}
+export interface PropertyDetailsProps
+  extends Pick<
+    Property,
+    "currency" | "rooms" | "status" | "isAvailableForPartnerships"
+  > {}
 
-export interface ContactDetailsProps {
-  city: string;
-  country: string;
-  addressLine1: string;
-  postcode: string;
-  email: string;
-  phoneNumber: string;
-  domain: string;
-}
+export interface ContactDetailsProps
+  extends Pick<
+    Property,
+    | "city"
+    | "country"
+    | "addressLine1"
+    | "postcode"
+    | "email"
+    | "phoneNumber"
+    | "domain"
+  > {}
 
-export interface CheckInOutDetailsProps {
-  checkInTime: string;
-  checkOutTime: string;
-  timezone: string;
-}
+export interface CheckInOutDetailsProps
+  extends Pick<Property, "checkInTime" | "checkOutTime" | "timezone"> {}
 
 export interface BreadcrumbProps {
   title: string;

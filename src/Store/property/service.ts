@@ -3,7 +3,7 @@ import { Property } from "../../Types/types";
 
 const LOCAL_STORAGE_KEY = "propertiesData";
 
-const loadPropertiesFromLocalStorage = (): Property[] => {
+export const loadPropertiesFromLocalStorage = (): Property[] => {
   const data = localStorage.getItem(LOCAL_STORAGE_KEY);
   return data ? JSON.parse(data) : [];
 };

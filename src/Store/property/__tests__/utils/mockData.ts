@@ -1,0 +1,47 @@
+import { Property } from "../../../Types/types";
+
+export const mockProperty1: Property = {
+  id: "1",
+  name: "Test Property",
+  addressLine1: "Test Address",
+  checkInTime: "14:00",
+  checkOutTime: "11:00",
+  city: "Test City",
+  country: "Test Country",
+  currency: "EUR",
+  domain: "test.com",
+  email: "",
+  phoneNumber: "",
+  postcode: "12345",
+  rooms: 1,
+  starRating: 4,
+  status: true,
+  timezone: "Europe/Amsterdam",
+  isAvailableForPartnerships: true,
+  description: "Test description",
+  images: [],
+};
+
+export const mockProperty2: Property = {
+  id: "2",
+  name: "Test Property 2",
+  addressLine1: "456 Test Ave",
+  checkInTime: "14:00",
+  checkOutTime: "11:00",
+  city: "Test City",
+  country: "Test Country",
+  currency: "EUR",
+  domain: "test2.com",
+  email: "test2@test.com",
+  images: [],
+  isAvailableForPartnerships: true,
+  phoneNumber: "987-654-3210",
+  postcode: "67890",
+  rooms: 20,
+  starRating: 5,
+  status: true,
+  timezone: "GMT",
+  description: "This is a test property 2",
+};
+
+export const mockProperties: Property[] = [mockProperty1, mockProperty2];
