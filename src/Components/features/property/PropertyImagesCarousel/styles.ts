@@ -1,7 +1,7 @@
 import { Image } from "antd";
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.div<{ children: React.ReactNode }>`
   margin: 2rem 0;
   padding: 0 0.5rem;
 

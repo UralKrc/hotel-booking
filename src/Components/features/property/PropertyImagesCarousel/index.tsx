@@ -15,11 +15,12 @@ const PropertyImagesCarousel: React.FC<PropertyImagesCarouselProps> = ({
   images,
 }) => {
   return (
-    <Container>
+    <Container data-testid="carousel-container">
       <Carousel autoplay>
         {images.map((image) => (
           <Fragment key={image.id}>
             <StyledImage
+              data-testid="carousel-image"
               // https://github.com/element-plus/element-plus/issues/19049
               preview={false}
               src={image.url}

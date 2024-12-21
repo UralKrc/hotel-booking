@@ -1,4 +1,3 @@
-import { mockProperty1 as mockProperty } from "./utils/mockData";
 import propertyReducer, { initialState } from "../reducer";
 import {
   editPropertyThunk,
@@ -6,6 +5,7 @@ import {
   fetchPropertyByIdThunk,
   removePropertyThunk,
 } from "../thunks";
+import { mockProperty1 as mockProperty } from "../utils/mockData";
 
 describe("propertyReducer", () => {
   it("should handle fetchProperties.pending", () => {

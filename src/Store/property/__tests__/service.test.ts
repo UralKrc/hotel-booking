@@ -1,4 +1,3 @@
-import { mockProperties } from "./utils/mockData";
 import {
   editProperty,
   fetchPropertyById,
@@ -7,6 +6,7 @@ import {
   removeProperty,
   savePropertiesToLocalStorage,
 } from "../service";
+import { mockProperties } from "../utils/mockData";
 
 describe("property service", () => {
   beforeEach(() => {

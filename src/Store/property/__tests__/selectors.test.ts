@@ -1,10 +1,10 @@
-import { mockProperty1 as mockProperty } from "./utils/mockData";
 import {
   getPropertiesSelector,
   getPropertyByIdSelector,
   getPropertyErrorSelector,
   getPropertyLoadingSelector,
 } from "../selectors";
+import { mockProperty1 as mockProperty } from "../utils/mockData";
 
 describe("property selectors", () => {
   const state = {

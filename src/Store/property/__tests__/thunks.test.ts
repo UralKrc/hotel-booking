@@ -10,7 +10,7 @@ import {
 import {
   mockProperties,
   mockProperty1 as mockProperty,
-} from "./utils/mockData";
+} from "../utils/mockData";
 
 const createTestStore = (preloadedState = {}) => {
   return configureStore({
