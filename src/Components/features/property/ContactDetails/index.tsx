@@ -1,5 +1,5 @@
-import { generateContactItems } from "../../../../Utils/propertyItemsGenerator";
-import { ContactDetailsProps } from "../../../../Utils/types";
+import { ContactDetailsProps } from "../../../../Types/types";
+import { generateContactItems } from "../../../../Utils/itemsGenerator";
 import Card from "../../../common/Card";
 import PropertyItemList from "../../../common/PropertyItemList";
 

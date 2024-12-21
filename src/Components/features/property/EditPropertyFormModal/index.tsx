@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { editPropertyThunk } from "../../../../Store/property/thunks";
 import { AppDispatch } from "../../../../Store/store";
-import { Property } from "../../../../Store/types";
+import { Property } from "../../../../Types/types";
 import {
   checkInOutFields,
   contactDetailsFields,

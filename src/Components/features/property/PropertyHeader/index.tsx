@@ -1,10 +1,11 @@
-import { EditOutlined, HomeOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { Breadcrumb, Rate } from "antd";
 import React from "react";
-import { Property } from "../../../../Store/types";
+import { generateBreadcrumbItems } from "../../../../Utils/itemsGenerator";
 import Button from "../../../common/Button";
 import EditPropertyFormModal from "../EditPropertyFormModal";
 import { Container, Description, StyledFlex, StyledTitle } from "./styles";
+import { Property } from "../../../../Types/types";
 
 interface PropertyHeaderProps {
   property: Property;
@@ -17,23 +18,7 @@ const PropertyHeader: React.FC<PropertyHeaderProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const items = [
-    {
-      title: (
-        <>
-          <HomeOutlined />
-          <span>Properties</span>
-        </>
-      ),
-      href: "/",
-    },
-    {
-      title: "Property",
-    },
-    {
-      title: property.name,
-    },
-  ];
+  const items = generateBreadcrumbItems(property.name);
 
   return (
     <Container>

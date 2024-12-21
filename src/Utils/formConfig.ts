@@ -1,4 +1,4 @@
-import { FieldConfig } from "./types";
+import { FieldConfig } from "../Types/types";
 
 export const contactDetailsFields: FieldConfig[] = [
   { name: "city", label: "City", span: 6 },

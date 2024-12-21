@@ -1,10 +1,10 @@
-import { getCurrencySymbol } from "./getCurrencySymbol";
 import {
   BreadcrumbProps,
   CheckInOutDetailsProps,
   ContactDetailsProps,
   ItemProps,
-} from "./types";
+} from "../Types/types";
+import { getCurrencySymbol } from "./getCurrencySymbol";
 
 export const generatePropertyInformationItems = (data: {
   currency: string;
@@ -86,7 +86,7 @@ export const generateCheckInOutItems = (
   ];
 };
 
-export const generatePropertyHeaderItems = (
+export const generateBreadcrumbItems = (
   propertyName: string
 ): BreadcrumbProps[] => [
   {

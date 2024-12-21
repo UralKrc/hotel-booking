@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction, SerializedError } from "@reduxjs/toolkit";
-import { Property, PropertyState } from "../types";
 import { savePropertiesToLocalStorage } from "./service";
 import {
   editPropertyThunk,
@@ -7,6 +6,7 @@ import {
   fetchPropertyByIdThunk,
   removePropertyThunk,
 } from "./thunks";
+import { Property, PropertyState } from "../../Types/types";
 
 const initialState: PropertyState = {
   properties: [],

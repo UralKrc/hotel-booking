@@ -1,5 +1,5 @@
-import { generateCheckInOutItems } from "../../../../Utils/propertyItemsGenerator";
-import { CheckInOutDetailsProps } from "../../../../Utils/types";
+import { CheckInOutDetailsProps } from "../../../../Types/types";
+import { generateCheckInOutItems } from "../../../../Utils/itemsGenerator";
 import Card from "../../../common/Card";
 import PropertyItemList from "../../../common/PropertyItemList";
 

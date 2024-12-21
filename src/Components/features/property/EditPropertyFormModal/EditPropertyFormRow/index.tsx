@@ -37,7 +37,7 @@ const getComponent = (
     case "Switch":
       return <Switch />;
     case "TimePicker":
-      return <TimePicker />;
+      return <TimePicker fullWidth />;
     default:
       return <Input />;
   }

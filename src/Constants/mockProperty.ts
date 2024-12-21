@@ -1,4 +1,4 @@
-import { Property } from "../../Store/types";
+import { Property } from "../Types/types";
 
 export const mockProperty: Property = {
   id: "1",
@@ -8,7 +8,7 @@ export const mockProperty: Property = {
   checkOutTime: "11:00",
   city: "Test City",
   country: "Test Country",
-  currency: "USD",
+  currency: "EUR",
   domain: "test.com",
   email: "",
   phoneNumber: "",
@@ -16,7 +16,7 @@ export const mockProperty: Property = {
   rooms: 1,
   starRating: 4,
   status: true,
-  timezone: "UTC",
+  timezone: "Europe/Amsterdam",
   isAvailableForPartnerships: true,
   description: "Test description",
   images: [],

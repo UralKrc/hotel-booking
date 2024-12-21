@@ -1,6 +1,6 @@
 import React from "react";
-import { generatePropertyInformationItems } from "../../../../Utils/propertyItemsGenerator";
-import { PropertyDetailsProps } from "../../../../Utils/types";
+import { PropertyDetailsProps } from "../../../../Types/types";
+import { generatePropertyInformationItems } from "../../../../Utils/itemsGenerator";
 import Card from "../../../common/Card";
 import PropertyItemList from "../../../common/PropertyItemList";
 

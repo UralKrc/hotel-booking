@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Property } from "../types";
 import {
   editProperty,
   fetchPropertyById,
   getProperties,
   removeProperty,
 } from "./service";
+import { Property } from "../../Types/types";
 
 export const fetchProperties = createAsyncThunk<Property[]>(
   "property/fetchProperties",

@@ -1,16 +1,16 @@
 import { getCurrencySymbol } from "./getCurrencySymbol";
 import {
+  generateBreadcrumbItems,
   generateCheckInOutItems,
   generateContactItems,
-  generatePropertyHeaderItems,
   generatePropertyInformationItems,
-} from "./propertyItemsGenerator";
+} from "./itemsGenerator";
 
 jest.mock("./getCurrencySymbol", () => ({
   getCurrencySymbol: jest.fn().mockReturnValue("$"),
 }));
 
-describe("Property Items Generator", () => {
+describe("Items Generator", () => {
   describe("generatePropertyInformationItems", () => {
     beforeEach(() => {
       (getCurrencySymbol as jest.Mock).mockReturnValue("$");
@@ -114,7 +114,7 @@ describe("Property Items Generator", () => {
 
   describe("generatePropertyHeaderItems", () => {
     test("generates correct header items", () => {
-      const items = generatePropertyHeaderItems("Test Property");
+      const items = generateBreadcrumbItems("Test Property");
 
       expect(items).toEqual([
         { title: "Properties", icon: "home", href: "/" },

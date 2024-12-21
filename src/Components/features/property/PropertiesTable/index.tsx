@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removePropertyThunk } from "../../../../Store/property/thunks";
 import { AppDispatch } from "../../../../Store/store";
-import { Property } from "../../../../Store/types";
+import { Property } from "../../../../Types/types";
 import Button from "../../../common/Button";
 
 interface PropertiesTableProps {

@@ -1,5 +1,5 @@
 import data from "../../data.json";
-import { Property } from "../types";
+import { Property } from "../../Types/types";
 
 const LOCAL_STORAGE_KEY = "propertiesData";
 
