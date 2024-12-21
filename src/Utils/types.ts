@@ -1,3 +1,5 @@
+import { Rule } from "antd/es/form";
+
 export interface ItemProps {
   title: string;
   label: string;
@@ -30,4 +32,13 @@ export interface BreadcrumbProps {
   title: string;
   icon?: "home" | "edit" | "user";
   href?: string;
+}
+
+export interface FieldConfig {
+  name: string;
+  label: string;
+  span?: number;
+  rules?: Rule[];
+  component?: string;
+  options?: { value: string; label: string }[];
 }

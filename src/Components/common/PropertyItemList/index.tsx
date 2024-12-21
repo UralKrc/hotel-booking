@@ -7,7 +7,7 @@ interface LabeledItemListProps {
   vertical?: boolean;
 }
 
-const LabeledItemList: React.FC<LabeledItemListProps> = ({
+const PropertyItemList: React.FC<LabeledItemListProps> = ({
   items,
   vertical,
 }) => {
@@ -23,4 +23,4 @@ const LabeledItemList: React.FC<LabeledItemListProps> = ({
   );
 };
 
-export default LabeledItemList;
+export default PropertyItemList;

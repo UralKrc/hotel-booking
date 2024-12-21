@@ -1,12 +1,17 @@
-import { Col, Form, Row } from "antd";
+import { Col, Form, Modal, Row } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { editPropertyRequest } from "../../../../Store/property/actions";
+import { editPropertyThunk } from "../../../../Store/property/thunks";
+import { AppDispatch } from "../../../../Store/store";
 import { Property } from "../../../../Store/types";
-import Modal from "../../../common/Modal";
-import EditCheckInOutDetails from "./EditCheckInOutDetails";
-import EditContanctDetails from "./EditContanctDetails";
-import EditPropertyInformation from "./EditPropertyInformation";
+import {
+  checkInOutFields,
+  contactDetailsFields,
+  contactFields,
+  propertyBasicFields,
+  propertyDetailFields,
+} from "../../../../Utils/formConfig";
+import EditPropertyFormRow from "./EditPropertyFormRow";
 
 interface EditPropertyFormModalProps {
   property: Property;
@@ -20,11 +25,11 @@ const EditPropertyFormModal: React.FC<EditPropertyFormModalProps> = ({
   onCancel,
 }) => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: Property[]) => {
     const updatedProperty = { ...property, ...values };
-    dispatch(editPropertyRequest(updatedProperty));
+    dispatch(editPropertyThunk(updatedProperty));
     onCancel();
   };
 
@@ -46,13 +51,21 @@ const EditPropertyFormModal: React.FC<EditPropertyFormModalProps> = ({
         onFinish={onFinish}
         initialValues={property}
       >
-        <EditPropertyInformation handleChange={handleChange} />
+        <EditPropertyFormRow fields={propertyBasicFields} />
+        <EditPropertyFormRow
+          fields={propertyDetailFields}
+          handleChange={handleChange}
+        />
         <Row>
           <Col xs={24}>
-            <EditCheckInOutDetails handleChange={handleChange} />
+            <EditPropertyFormRow
+              fields={checkInOutFields}
+              handleChange={handleChange}
+            />
           </Col>
           <Col xs={24}>
-            <EditContanctDetails />
+            <EditPropertyFormRow fields={contactFields} />
+            <EditPropertyFormRow fields={contactDetailsFields} />
           </Col>
         </Row>
       </Form>

@@ -2,20 +2,21 @@ import { Flex, Table, TableProps } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removePropertyRequest } from "../../../../Store/property/actions";
+import { removePropertyThunk } from "../../../../Store/property/thunks";
+import { AppDispatch } from "../../../../Store/store";
 import { Property } from "../../../../Store/types";
 import Button from "../../../common/Button";
 
-interface Properties {
+interface PropertiesTableProps {
   properties: Property[];
 }
 
-export const PropertiesTable: React.FC<Properties> = ({ properties }) => {
+const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) => {
+  const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch type
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleRemoveProperty = (id: string) => {
-    dispatch(removePropertyRequest(id));
+    dispatch(removePropertyThunk(id));
     navigate("/");
   };
 
@@ -57,3 +58,5 @@ export const PropertiesTable: React.FC<Properties> = ({ properties }) => {
     />
   );
 };
+
+export default PropertiesTable;

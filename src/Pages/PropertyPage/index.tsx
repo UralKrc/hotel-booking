@@ -8,19 +8,20 @@ import ContactDetails from "../../Components/features/property/ContactDetails";
 import PropertyHeader from "../../Components/features/property/PropertyHeader";
 import PropertyImagesCarousel from "../../Components/features/property/PropertyImagesCarousel";
 import PropertyInformation from "../../Components/features/property/PropertyInformation";
-import { fetchPropertyByIdRequest } from "../../Store/property/actions";
 import { getPropertyByIdSelector } from "../../Store/property/selectors";
+import { fetchPropertyByIdThunk } from "../../Store/property/thunks";
+import { AppDispatch } from "../../Store/store"; // Import AppDispatch
 import { Container, InnerContainer } from "./styles";
 
 const PropertyPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch type
   const property = useSelector(getPropertyByIdSelector);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchPropertyByIdRequest({ id }));
+      dispatch(fetchPropertyByIdThunk(id));
     }
   }, [id, dispatch]);
 

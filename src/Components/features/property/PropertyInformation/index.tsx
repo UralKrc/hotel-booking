@@ -1,15 +1,15 @@
 import React from "react";
-import { generatePropertyInformationItems } from "../../../../Utils/itemsGenerator";
+import { generatePropertyInformationItems } from "../../../../Utils/propertyItemsGenerator";
 import { PropertyDetailsProps } from "../../../../Utils/types";
 import Card from "../../../common/Card";
-import LabeledItemList from "../../../common/LabeledItemList";
+import PropertyItemList from "../../../common/PropertyItemList";
 
 const PropertyInformation: React.FC<PropertyDetailsProps> = (props) => {
   const items = generatePropertyInformationItems(props);
 
   return (
     <Card title="Availability">
-      <LabeledItemList items={items} />
+      <PropertyItemList items={items} />
     </Card>
   );
 };
