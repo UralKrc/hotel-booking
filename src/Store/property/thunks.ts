@@ -7,6 +7,13 @@ import {
   removeProperty,
 } from "./service";
 
+const handleError = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.message;
+  }
+  return "An unexpected error occurred";
+};
+
 export const fetchProperties = createAsyncThunk<
   Property[],
   void,
@@ -15,11 +22,10 @@ export const fetchProperties = createAsyncThunk<
   try {
     const properties = await getProperties();
     return properties;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return rejectWithValue(error.message);
-    }
-    return rejectWithValue("An error occurred");
+  } catch (error) {
+    const message = handleError(error);
+
+    return rejectWithValue(message);
   }
 });
 
@@ -30,12 +36,13 @@ export const fetchPropertyByIdThunk = createAsyncThunk<
 >("property/fetchPropertyById", async (id, { rejectWithValue }) => {
   try {
     const property = await fetchPropertyById(id);
-    return property;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return rejectWithValue(error.message);
+    if (!property) {
+      return rejectWithValue("Property not found");
     }
-    return rejectWithValue("An error occurred");
+    return property;
+  } catch (error) {
+    const message = handleError(error);
+    return rejectWithValue(message);
   }
 });
 
@@ -47,11 +54,9 @@ export const removePropertyThunk = createAsyncThunk<
   try {
     await removeProperty(id);
     return id;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return rejectWithValue(error.message);
-    }
-    return rejectWithValue("An error occurred");
+  } catch (error) {
+    const message = handleError(error);
+    return rejectWithValue(message);
   }
 });
 
@@ -62,11 +67,11 @@ export const editPropertyThunk = createAsyncThunk<
 >("property/editProperty", async (property, { rejectWithValue }) => {
   try {
     const updatedProperty = await editProperty(property);
+
     return updatedProperty;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      return rejectWithValue(error.message);
-    }
-    return rejectWithValue("An error occurred");
+  } catch (error) {
+    const message = handleError(error);
+
+    return rejectWithValue(message);
   }
 });

@@ -1,11 +1,11 @@
-import propertyReducer, { initialState } from "../reducer";
+import propertyReducer, { initialState } from "../slice";
 import {
   editPropertyThunk,
   fetchProperties,
   fetchPropertyByIdThunk,
   removePropertyThunk,
 } from "../thunks";
-import { mockProperty1 as mockProperty } from "../utils/mockData";
+import { mockProperties } from "../utils/mockData";
 
 describe("propertyReducer", () => {
   it("should handle fetchProperties.pending", () => {
@@ -21,12 +21,12 @@ describe("propertyReducer", () => {
   it("should handle fetchProperties.fulfilled", () => {
     const action = {
       type: fetchProperties.fulfilled.type,
-      payload: [mockProperty],
+      payload: [mockProperties[0]],
     };
     const state = propertyReducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
-      properties: [mockProperty],
+      properties: [mockProperties[0]],
       loading: false,
     });
   });
@@ -57,12 +57,12 @@ describe("propertyReducer", () => {
   it("should handle fetchPropertyByIdThunk.fulfilled", () => {
     const action = {
       type: fetchPropertyByIdThunk.fulfilled.type,
-      payload: mockProperty,
+      payload: mockProperties[0],
     };
     const state = propertyReducer(initialState, action);
     expect(state).toEqual({
       ...initialState,
-      property: mockProperty,
+      property: mockProperties[0],
       loading: false,
     });
   });
@@ -93,11 +93,11 @@ describe("propertyReducer", () => {
   it("should handle removePropertyThunk.fulfilled", () => {
     const initialStateWithProperties = {
       ...initialState,
-      properties: [mockProperty],
+      properties: [mockProperties[0]],
     };
     const action = {
       type: removePropertyThunk.fulfilled.type,
-      payload: mockProperty.id,
+      payload: mockProperties[0].id,
     };
     const state = propertyReducer(initialStateWithProperties, action);
     expect(state).toEqual({
@@ -133,10 +133,10 @@ describe("propertyReducer", () => {
   it("should handle editPropertyThunk.fulfilled", () => {
     const initialStateWithProperties = {
       ...initialState,
-      properties: [mockProperty],
-      property: mockProperty,
+      properties: [mockProperties[0]],
+      property: mockProperties[0],
     };
-    const updatedProperty = { ...mockProperty, name: "Updated Property" };
+    const updatedProperty = { ...mockProperties[0], name: "Updated Property" };
     const action = {
       type: editPropertyThunk.fulfilled.type,
       payload: updatedProperty,

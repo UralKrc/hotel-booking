@@ -3,7 +3,7 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import PropertyHeader from ".";
-import { mockProperty1 as mockProperty } from "../../../../Store/property/utils/mockData";
+import { mockProperties } from "../../../../Store/property/utils/mockData";
 import { setupMatchMedia } from "../../../../Store/property/utils/setupMatchMedia";
 import store from "../../../../Store/store";
 import { theme } from "../../../../Theme/theme";
@@ -20,7 +20,7 @@ describe("PropertyHeader", () => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <PropertyHeader
-            property={mockProperty}
+            property={mockProperties[0]}
             isEditing={false}
             setIsEditing={mockSetIsEditing}
           />
@@ -30,9 +30,9 @@ describe("PropertyHeader", () => {
 
     // Check title specifically
     expect(
-      screen.getByRole("heading", { name: mockProperty.name })
+      screen.getByRole("heading", { name: mockProperties[0].name })
     ).toBeInTheDocument();
-    expect(screen.getByText(mockProperty.description)).toBeInTheDocument();
+    expect(screen.getByText(mockProperties[0].description)).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /edit property/i })
     ).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe("PropertyHeader", () => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <PropertyHeader
-            property={mockProperty}
+            property={mockProperties[0]}
             isEditing={false}
             setIsEditing={mockSetIsEditing}
           />
@@ -62,7 +62,7 @@ describe("PropertyHeader", () => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <PropertyHeader
-            property={mockProperty}
+            property={mockProperties[0]}
             isEditing={false}
             setIsEditing={mockSetIsEditing}
           />
@@ -74,7 +74,7 @@ describe("PropertyHeader", () => {
     expect(ratingContainer).toBeInTheDocument();
 
     const checkedStars = screen.getAllByRole("radio", { checked: true });
-    expect(checkedStars).toHaveLength(mockProperty.starRating);
+    expect(checkedStars).toHaveLength(mockProperties[0].starRating);
   });
 
   it("renders breadcrumb navigation", () => {
@@ -82,7 +82,7 @@ describe("PropertyHeader", () => {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <PropertyHeader
-            property={mockProperty}
+            property={mockProperties[0]}
             isEditing={false}
             setIsEditing={mockSetIsEditing}
           />

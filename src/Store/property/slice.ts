@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Property, PropertyState } from "../../Types/types";
+import { savePropertiesToLocalStorage } from "./service";
 import {
+  editPropertyThunk,
   fetchProperties,
   fetchPropertyByIdThunk,
   removePropertyThunk,
-  editPropertyThunk,
 } from "./thunks";
-import { savePropertiesToLocalStorage } from "./service";
-import { SerializedError } from "@reduxjs/toolkit";
 
 export const initialState: PropertyState = {
   properties: [],
@@ -33,14 +32,10 @@ const propertySlice = createSlice({
           state.loading = false;
         }
       )
-      .addCase(
-        fetchProperties.rejected,
-        (state, action: PayloadAction<unknown>) => {
-          const error = action.payload as SerializedError;
-          state.loading = false;
-          state.error = error.message || "An error occurred";
-        }
-      )
+      .addCase(fetchProperties.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to fetch properties.";
+      })
       .addCase(fetchPropertyByIdThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -52,14 +47,10 @@ const propertySlice = createSlice({
           state.loading = false;
         }
       )
-      .addCase(
-        fetchPropertyByIdThunk.rejected,
-        (state, action: PayloadAction<unknown>) => {
-          const error = action.payload as SerializedError;
-          state.loading = false;
-          state.error = error.message || "An error occurred";
-        }
-      )
+      .addCase(fetchPropertyByIdThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to fetch the property.";
+      })
       .addCase(removePropertyThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -74,14 +65,10 @@ const propertySlice = createSlice({
           savePropertiesToLocalStorage(state.properties);
         }
       )
-      .addCase(
-        removePropertyThunk.rejected,
-        (state, action: PayloadAction<unknown>) => {
-          const error = action.payload as SerializedError;
-          state.loading = false;
-          state.error = error.message || "An error occurred";
-        }
-      )
+      .addCase(removePropertyThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to remove the property.";
+      })
       .addCase(editPropertyThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -97,22 +84,20 @@ const propertySlice = createSlice({
           } else {
             state.properties.push(action.payload);
           }
+
           // Update the currently viewed property if it matches the edited property
           if (state.property && state.property.id === action.payload.id) {
             state.property = action.payload;
           }
+
           state.loading = false;
           savePropertiesToLocalStorage(state.properties);
         }
       )
-      .addCase(
-        editPropertyThunk.rejected,
-        (state, action: PayloadAction<unknown>) => {
-          const error = action.payload as SerializedError;
-          state.loading = false;
-          state.error = error.message || "An error occurred";
-        }
-      );
+      .addCase(editPropertyThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to edit the property.";
+      });
   },
 });
 

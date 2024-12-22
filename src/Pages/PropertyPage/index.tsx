@@ -10,13 +10,15 @@ import PropertyImagesCarousel from "../../Components/features/property/PropertyI
 import PropertyInformation from "../../Components/features/property/PropertyInformation";
 import { getPropertyByIdSelector } from "../../Store/property/selectors";
 import { fetchPropertyByIdThunk } from "../../Store/property/thunks";
-import { AppDispatch } from "../../Store/store"; // Import AppDispatch
-import { Container, InnerContainer } from "./styles";
+import { AppDispatch } from "../../Store/store";
+import { RootState } from "../../Types/types";
+import { Container } from "./styles";
 
 const PropertyPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch type
+  const dispatch = useDispatch<AppDispatch>();
   const property = useSelector(getPropertyByIdSelector);
+  const error = useSelector((state: RootState) => state.property.error);
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -24,6 +26,10 @@ const PropertyPage: React.FC = () => {
       dispatch(fetchPropertyByIdThunk(id));
     }
   }, [id, dispatch]);
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   if (!property) {
     return <Loading />;
@@ -41,36 +47,35 @@ const PropertyPage: React.FC = () => {
         <PropertyImagesCarousel images={property.images} />
       ) : null}
       <Divider />
-      <InnerContainer>
-        <Row gutter={[8, 8]}>
-          <Col xs={24} md={8}>
-            <PropertyInformation
-              currency={property.currency}
-              rooms={property.rooms}
-              status={property.status}
-              isAvailableForPartnerships={property.isAvailableForPartnerships}
-            />
-          </Col>
-          <Col xs={24} md={8}>
-            <CheckInOutDetails
-              checkInTime={property.checkInTime}
-              checkOutTime={property.checkOutTime}
-              timezone={property.timezone}
-            />
-          </Col>
-          <Col xs={24} md={8}>
-            <ContactDetails
-              city={property.city}
-              country={property.country}
-              addressLine1={property.addressLine1}
-              postcode={property.postcode}
-              email={property.email || ""}
-              phoneNumber={property.phoneNumber || ""}
-              domain={property.domain}
-            />
-          </Col>
-        </Row>
-      </InnerContainer>
+
+      <Row gutter={[8, 8]}>
+        <Col xs={24} md={8}>
+          <PropertyInformation
+            currency={property.currency}
+            rooms={property.rooms}
+            status={property.status}
+            isAvailableForPartnerships={property.isAvailableForPartnerships}
+          />
+        </Col>
+        <Col xs={24} md={8}>
+          <CheckInOutDetails
+            checkInTime={property.checkInTime}
+            checkOutTime={property.checkOutTime}
+            timezone={property.timezone}
+          />
+        </Col>
+        <Col xs={24} md={8}>
+          <ContactDetails
+            city={property.city}
+            country={property.country}
+            addressLine1={property.addressLine1}
+            postcode={property.postcode}
+            email={property.email || ""}
+            phoneNumber={property.phoneNumber || ""}
+            domain={property.domain}
+          />
+        </Col>
+      </Row>
     </Container>
   );
 };

@@ -4,24 +4,24 @@ import {
   getPropertyErrorSelector,
   getPropertyLoadingSelector,
 } from "../selectors";
-import { mockProperty1 as mockProperty } from "../utils/mockData";
+import { mockProperties } from "../utils/mockData";
 
 describe("property selectors", () => {
   const state = {
     property: {
-      properties: [mockProperty],
-      property: mockProperty,
+      properties: [mockProperties[0]],
+      property: mockProperties[0],
       loading: false,
       error: null,
     },
   };
 
   it("should select properties", () => {
-    expect(getPropertiesSelector(state)).toEqual([mockProperty]);
+    expect(getPropertiesSelector(state)).toEqual([mockProperties[0]]);
   });
 
   it("should select current property", () => {
-    expect(getPropertyByIdSelector(state)).toEqual(mockProperty);
+    expect(getPropertyByIdSelector(state)).toEqual(mockProperties[0]);
   });
 
   it("should select loading state", () => {

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import data from "../../data.json";
 import { Property } from "../../Types/types";
 
@@ -13,7 +14,21 @@ export const savePropertiesToLocalStorage = (properties: Property[]): void => {
 };
 
 const loadInitialData = (): Property[] => {
-  return data.data.map((item: { property: Property }) => item.property);
+  return data.data.map((item: { property: Property }) => {
+    const property = item.property;
+    // Assume today's date for time-only strings
+    const today = dayjs().format("YYYY-MM-DD");
+
+    return {
+      ...property,
+      checkInTime: dayjs(`${today}T${property.checkInTime}`).isValid()
+        ? dayjs(`${today}T${property.checkInTime}`).toISOString()
+        : "Invalid Date",
+      checkOutTime: dayjs(`${today}T${property.checkOutTime}`).isValid()
+        ? dayjs(`${today}T${property.checkOutTime}`).toISOString()
+        : "Invalid Date",
+    };
+  });
 };
 
 export const getProperties = async (): Promise<Property[]> => {

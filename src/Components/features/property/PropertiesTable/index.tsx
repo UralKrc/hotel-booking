@@ -9,7 +9,7 @@ import Button from "../../../common/Button";
 import { PropertiesTableProps } from "./types";
 
 const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) => {
-  const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch type
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const handleRemoveProperty = (id: string) => {

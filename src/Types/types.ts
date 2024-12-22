@@ -1,4 +1,5 @@
 import { Rule } from "antd/es/form";
+import { ReactNode } from "react";
 
 export interface Property {
   id: string;
@@ -36,6 +37,8 @@ export interface RootState {
 export interface ItemProps {
   title: string;
   label: string;
+  icon?: ReactNode;
+  color?: string;
 }
 
 export interface PropertyDetailsProps

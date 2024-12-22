@@ -5,10 +5,12 @@ import { getPropertiesSelector } from "../../Store/property/selectors";
 import { fetchProperties } from "../../Store/property/thunks";
 import { AppDispatch } from "../../Store/store";
 import { Container } from "./styles";
+import { RootState } from "../../Types/types";
 
 const PropertiesPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const properties = useSelector(getPropertiesSelector);
+  const error = useSelector((state: RootState) => state.property.error);
 
   useEffect(() => {
     dispatch(fetchProperties());
@@ -17,7 +19,11 @@ const PropertiesPage = () => {
   return (
     <Container>
       <h3>Properties</h3>
-      <PropertiesTable properties={properties} />
+      {error ? (
+        <p>Error: {error}</p>
+      ) : (
+        <PropertiesTable properties={properties} />
+      )}
     </Container>
   );
 };

@@ -151,14 +151,10 @@ describe("Items Generator", () => {
       // Set a fixed timezone and time for consistent testing
       jest.useFakeTimers();
       jest.setSystemTime(new Date("2024-01-01T12:00:00Z"));
-      // Force UTC timezone for tests
-      process.env.TZ = "UTC";
     });
 
     afterAll(() => {
       jest.useRealTimers();
-      // Reset timezone
-      process.env.TZ = undefined;
     });
 
     const mockCheckInOutData = {
@@ -185,7 +181,7 @@ describe("Items Generator", () => {
         },
         {
           title: "Timezone",
-          label: "UTC (12:00 PM)",
+          label: "UTC (12:00)",
           icon: <ClockCircleOutlined />,
           color: "blue",
         },

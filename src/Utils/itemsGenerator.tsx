@@ -9,21 +9,14 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 import dayjs from "dayjs";
-import React from "react";
 import {
   CheckInOutDetailsProps,
   ContactDetailsProps,
+  ItemProps,
   PropertyDetailsProps,
 } from "../Types/types";
 import { getCurrencyIcon } from "./getCurrencyIcon";
 import { formatTimezone } from "./timezoneFormatter";
-
-interface ItemProps {
-  title: string;
-  label: string | React.ReactNode;
-  icon?: React.ReactNode;
-  color?: string;
-}
 
 export const generatePropertyInformationItems = (
   data: PropertyDetailsProps

@@ -1,12 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import propertyReducer from "./property/reducer";
+import propertyReducer from "./property/slice";
 
 const store = configureStore({
   reducer: {
     property: propertyReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-  devTools: process.env.NODE_ENV !== "production",
 });
 
 export type RootState = ReturnType<typeof store.getState>;

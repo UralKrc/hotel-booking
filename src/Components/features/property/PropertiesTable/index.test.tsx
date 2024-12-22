@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter, useLocation } from "react-router-dom";
 import PropertiesTable from ".";
-import propertyReducer from "../../../../Store/property/reducer";
+import propertyReducer from "../../../../Store/property/slice";
 import { mockProperties } from "../../../../Store/property/utils/mockData";
 import { setupMatchMedia } from "../../../../Store/property/utils/setupMatchMedia";
 

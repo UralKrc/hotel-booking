@@ -1,21 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import propertyReducer, { initialState } from "../reducer";
 import * as service from "../service";
+import propertySlice, { initialState } from "../slice";
 import {
   editPropertyThunk,
   fetchProperties,
   fetchPropertyByIdThunk,
   removePropertyThunk,
 } from "../thunks";
-import {
-  mockProperties,
-  mockProperty1 as mockProperty,
-} from "../utils/mockData";
+import { mockProperties } from "../utils/mockData";
 
 const createTestStore = (preloadedState = {}) => {
   return configureStore({
     reducer: {
-      property: propertyReducer,
+      property: propertySlice,
     },
     preloadedState,
   });
@@ -40,11 +37,15 @@ describe("property thunks", () => {
 
   it("should handle fetch properties failure", async () => {
     const errorMessage = "An error occurred";
+
     jest
       .spyOn(service, "getProperties")
       .mockRejectedValueOnce(new Error(errorMessage));
+
     await store.dispatch(fetchProperties());
+
     const state = store.getState().property;
+
     expect(state.properties).toEqual([]);
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
@@ -53,10 +54,10 @@ describe("property thunks", () => {
   it("should fetch property by id successfully", async () => {
     jest
       .spyOn(service, "fetchPropertyById")
-      .mockResolvedValueOnce(mockProperty);
-    await store.dispatch(fetchPropertyByIdThunk(mockProperty.id));
+      .mockResolvedValueOnce(mockProperties[0]);
+    await store.dispatch(fetchPropertyByIdThunk(mockProperties[0].id));
     const state = store.getState().property;
-    expect(state.property).toEqual(mockProperty);
+    expect(state.property).toEqual(mockProperties[0]);
     expect(state.loading).toBe(false);
     expect(state.error).toBeNull();
   });
@@ -66,7 +67,7 @@ describe("property thunks", () => {
     jest
       .spyOn(service, "fetchPropertyById")
       .mockRejectedValueOnce(new Error(errorMessage));
-    await store.dispatch(fetchPropertyByIdThunk(mockProperty.id));
+    await store.dispatch(fetchPropertyByIdThunk(mockProperties[0].id));
     const state = store.getState().property;
     expect(state.property).toBeNull();
     expect(state.loading).toBe(false);
@@ -76,8 +77,8 @@ describe("property thunks", () => {
   it("should remove property successfully", async () => {
     jest
       .spyOn(service, "removeProperty")
-      .mockResolvedValueOnce(mockProperty.id);
-    await store.dispatch(removePropertyThunk(mockProperty.id));
+      .mockResolvedValueOnce(mockProperties[0].id);
+    await store.dispatch(removePropertyThunk(mockProperties[0].id));
     const state = store.getState().property;
     expect(state.properties).toEqual([]);
     expect(state.loading).toBe(false);
@@ -88,7 +89,7 @@ describe("property thunks", () => {
     const errorMessage = "An error occurred";
     store = createTestStore({
       property: {
-        properties: [mockProperty],
+        properties: [mockProperties[0]],
         property: null,
         loading: false,
         error: null,
@@ -97,25 +98,25 @@ describe("property thunks", () => {
     jest
       .spyOn(service, "removeProperty")
       .mockRejectedValueOnce(new Error(errorMessage));
-    await store.dispatch(removePropertyThunk(mockProperty.id));
+    await store.dispatch(removePropertyThunk(mockProperties[0].id));
     const state = store.getState().property;
-    expect(state.properties).toEqual([mockProperty]);
+    expect(state.properties).toEqual([mockProperties[0]]);
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
   });
 
   it("should edit property successfully", async () => {
-    const updatedProperty = { ...mockProperty, name: "Updated Property" };
+    const updatedProperty = { ...mockProperties[0], name: "Updated Property" };
     jest.spyOn(service, "editProperty").mockResolvedValueOnce(updatedProperty);
     store = configureStore({
       reducer: {
-        property: propertyReducer,
+        property: propertySlice,
       },
       preloadedState: {
         property: {
           ...initialState,
-          property: mockProperty,
-          properties: [mockProperty],
+          property: mockProperties[0],
+          properties: [mockProperties[0]],
         },
       },
     });
@@ -133,13 +134,13 @@ describe("property thunks", () => {
     const errorMessage = "An error occurred";
     store = configureStore({
       reducer: {
-        property: propertyReducer,
+        property: propertySlice,
       },
       preloadedState: {
         property: {
           ...initialState,
-          properties: [mockProperty],
-          property: mockProperty,
+          properties: [mockProperties[0]],
+          property: mockProperties[0],
         },
       },
     });
@@ -148,9 +149,9 @@ describe("property thunks", () => {
       .spyOn(service, "editProperty")
       .mockRejectedValueOnce(new Error(errorMessage));
 
-    await store.dispatch(editPropertyThunk(mockProperty));
+    await store.dispatch(editPropertyThunk(mockProperties[0]));
     const state = store.getState().property;
-    expect(state.properties).toEqual([mockProperty]);
+    expect(state.properties).toEqual([mockProperties[0]]);
     expect(state.loading).toBe(false);
     expect(state.error).toBe(errorMessage);
   });
