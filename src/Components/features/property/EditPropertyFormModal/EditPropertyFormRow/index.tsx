@@ -1,6 +1,7 @@
-import { Col, Form, Row } from "antd";
+import { Col, Form } from "antd";
 import React from "react";
 import { getComponent } from "../../../../../Utils/getComponent";
+import { StyledEditPropertyFormRow } from "./styles";
 import { EditPropertyFormRowProps } from "./types";
 
 const EditPropertyFormRow: React.FC<EditPropertyFormRowProps> = ({
@@ -8,9 +9,9 @@ const EditPropertyFormRow: React.FC<EditPropertyFormRowProps> = ({
   handleChange,
   gutter = 8,
 }) => (
-  <Row justify="space-between" gutter={gutter}>
+  <StyledEditPropertyFormRow justify="space-between" gutter={gutter}>
     {fields.map((field) => (
-      <Col key={field.name} xs={24} md={field.span || 24}>
+      <Col key={field.name} xs={24} md={field.span}>
         <Form.Item
           name={field.name}
           label={field.label}
@@ -21,7 +22,7 @@ const EditPropertyFormRow: React.FC<EditPropertyFormRowProps> = ({
         </Form.Item>
       </Col>
     ))}
-  </Row>
+  </StyledEditPropertyFormRow>
 );
 
 export default EditPropertyFormRow;

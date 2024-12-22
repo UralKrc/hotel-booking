@@ -1,15 +1,15 @@
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
-import PropertyItemList from ".";
+import ItemList from ".";
 
-describe("PropertyItemList Component", () => {
+describe("ItemList Component", () => {
   const mockItems = [
     { title: "Currency", label: "USD" },
     { title: "Rooms", label: "5" },
   ];
 
   test("renders list items with titles and labels", () => {
-    render(<PropertyItemList items={mockItems} />);
+    render(<ItemList items={mockItems} />);
 
     mockItems.forEach((item) => {
       expect(screen.getByText(`${item.title}:`)).toBeInTheDocument();
@@ -18,7 +18,7 @@ describe("PropertyItemList Component", () => {
   });
 
   test("renders vertically when vertical prop is true", () => {
-    render(<PropertyItemList items={mockItems} vertical />);
+    render(<ItemList items={mockItems} vertical />);
 
     const flexContainers = screen
       .getAllByRole("generic")
