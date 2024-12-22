@@ -36,13 +36,13 @@ describe("property service", () => {
 
   it("should fetch property by id", async () => {
     localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
-    const property = await fetchPropertyById("1");
+    const property = await fetchPropertyById("1YK15JGO");
     expect(property).toEqual(mockProperties[0]);
   });
 
   it("should return null if property not found by id", async () => {
     localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
-    const property = await fetchPropertyById("3");
+    const property = await fetchPropertyById("non-existent-id");
     expect(property).toBeNull();
   });
 
@@ -59,11 +59,11 @@ describe("property service", () => {
 
   it("should remove property", async () => {
     localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
-    const id = await removeProperty("1");
+    const id = await removeProperty(mockProperties[0].id);
     const storedProperties = JSON.parse(
       localStorage.getItem("propertiesData") || "[]"
     );
-    expect(id).toEqual("1");
-    expect(storedProperties).toEqual([mockProperties[1]]);
+    expect(id).toEqual(mockProperties[0].id);
+    expect(storedProperties).toEqual(mockProperties.slice(1));
   });
 });
