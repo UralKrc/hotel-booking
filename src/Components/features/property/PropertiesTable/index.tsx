@@ -6,10 +6,7 @@ import { removePropertyThunk } from "../../../../Store/property/thunks";
 import { AppDispatch } from "../../../../Store/store";
 import { Property } from "../../../../Types/types";
 import Button from "../../../common/Button";
-
-interface PropertiesTableProps {
-  properties: Property[];
-}
+import { PropertiesTableProps } from "./types";
 
 const PropertiesTable: React.FC<PropertiesTableProps> = ({ properties }) => {
   const dispatch = useDispatch<AppDispatch>(); // Use AppDispatch type

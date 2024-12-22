@@ -5,13 +5,7 @@ import { generateBreadcrumbItems } from "../../../../Utils/itemsGenerator";
 import Button from "../../../common/Button";
 import EditPropertyFormModal from "../EditPropertyFormModal";
 import { Container, Description, StyledFlex, StyledTitle } from "./styles";
-import { Property } from "../../../../Types/types";
-
-interface PropertyHeaderProps {
-  property: Property;
-  isEditing: boolean;
-  setIsEditing: (isEditing: boolean) => void;
-}
+import { PropertyHeaderProps } from "./types";
 
 const PropertyHeader: React.FC<PropertyHeaderProps> = ({
   property,

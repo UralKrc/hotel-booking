@@ -1,5 +1,4 @@
 import {
-  BreadcrumbProps,
   CheckInOutDetailsProps,
   ContactDetailsProps,
   ItemProps,
@@ -86,17 +85,8 @@ export const generateCheckInOutItems = (
   ];
 };
 
-export const generateBreadcrumbItems = (
-  propertyName: string
-): BreadcrumbProps[] => [
-  {
-    title: "Properties",
-    href: "/",
-  },
-  {
-    title: "Property",
-  },
-  {
-    title: propertyName,
-  },
+export const generateBreadcrumbItems = (propertyName: string) => [
+  { title: "Properties", icon: "home", href: "/" },
+  { title: "Property" },
+  { title: propertyName },
 ];

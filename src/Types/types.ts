@@ -72,4 +72,12 @@ export interface FieldConfig {
   rules?: Rule[];
   component?: string;
   options?: { value: string; label: string }[];
+  max?: number;
+}
+
+export interface ComponentMap {
+  [key: string]: (
+    field: FieldConfig,
+    handleChange?: (value: string, field: string) => void
+  ) => JSX.Element;
 }

@@ -1,47 +1,7 @@
-import { Col, Form, Input, InputNumber, Row, Select, Switch } from "antd";
-import { Rule } from "antd/es/form";
+import { Col, Form, Row } from "antd";
 import React from "react";
-import TimePicker from "../../../../common/TimePicker";
-
-interface FieldConfig {
-  name: string;
-  label: string;
-  span?: number;
-  rules?: Rule[];
-  component?: string;
-  options?: { value: string; label: string }[];
-}
-
-interface EditPropertyFormRowProps {
-  fields: FieldConfig[];
-  handleChange?: (value: string, field: string) => void;
-  gutter?: number;
-}
-
-const getComponent = (
-  field: FieldConfig,
-  handleChange?: (value: string, field: string) => void
-) => {
-  switch (field.component) {
-    case "TextArea":
-      return <Input.TextArea />;
-    case "InputNumber":
-      return <InputNumber min={1} />;
-    case "Select":
-      return (
-        <Select
-          onChange={(value) => handleChange?.(value, field.name)}
-          options={field.options}
-        />
-      );
-    case "Switch":
-      return <Switch />;
-    case "TimePicker":
-      return <TimePicker fullWidth />;
-    default:
-      return <Input />;
-  }
-};
+import { getComponent } from "../../../../../Utils/getComponent";
+import { EditPropertyFormRowProps } from "./types";
 
 const EditPropertyFormRow: React.FC<EditPropertyFormRowProps> = ({
   fields,

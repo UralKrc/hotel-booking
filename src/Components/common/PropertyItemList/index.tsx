@@ -16,7 +16,7 @@ const PropertyItemList: React.FC<LabeledItemListProps> = ({
       {items.map((item: { title: string; label?: ReactNode }) => (
         <Flex key={item.title} gap="small" vertical={vertical} align="center">
           {item.label ? <ContainerTitle>{item.title}:</ContainerTitle> : null}
-          {item.label ? <div>{item.label}</div> : null}
+          {item.label ? <span>{item.label}</span> : null}
         </Flex>
       ))}
     </>

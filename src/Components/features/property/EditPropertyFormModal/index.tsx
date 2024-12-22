@@ -10,12 +10,7 @@ import { editPropertyThunk } from "../../../../Store/property/thunks";
 import { AppDispatch } from "../../../../Store/store";
 import { Property } from "../../../../Types/types";
 import EditPropertyFormRow from "./EditPropertyFormRow";
-
-interface EditPropertyFormModalProps {
-  property: Property;
-  visible: boolean;
-  onCancel: () => void;
-}
+import { EditPropertyFormModalProps } from "./types";
 
 const EditPropertyFormModal: React.FC<EditPropertyFormModalProps> = ({
   property,

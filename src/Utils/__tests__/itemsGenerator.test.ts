@@ -1,12 +1,12 @@
-import { getCurrencySymbol } from "./getCurrencySymbol";
+import { getCurrencySymbol } from "../getCurrencySymbol";
 import {
   generateBreadcrumbItems,
   generateCheckInOutItems,
   generateContactItems,
   generatePropertyInformationItems,
-} from "./itemsGenerator";
+} from "../itemsGenerator";
 
-jest.mock("./getCurrencySymbol", () => ({
+jest.mock("../getCurrencySymbol", () => ({
   getCurrencySymbol: jest.fn().mockReturnValue("$"),
 }));
 
@@ -112,7 +112,7 @@ describe("Items Generator", () => {
     });
   });
 
-  describe("generatePropertyHeaderItems", () => {
+  describe("generateBreadcrumbItems", () => {
     test("generates correct header items", () => {
       const items = generateBreadcrumbItems("Test Property");
 

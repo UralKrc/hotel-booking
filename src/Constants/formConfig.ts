@@ -1,10 +1,15 @@
 import { FieldConfig } from "../Types/types";
 
 export const contactDetailsFields: FieldConfig[] = [
-  { name: "city", label: "City", span: 6 },
-  { name: "country", label: "Country", span: 6 },
-  { name: "addressLine1", label: "Street", span: 6 },
-  { name: "postcode", label: "Postcode", span: 6 },
+  { name: "city", label: "City", span: 6, rules: [{ required: true }] },
+  { name: "country", label: "Country", span: 6, rules: [{ required: true }] },
+  {
+    name: "addressLine1",
+    label: "Street",
+    span: 6,
+    rules: [{ required: true }],
+  },
+  { name: "postcode", label: "Postcode", span: 6, rules: [{ required: true }] },
   {
     name: "email",
     label: "Email",
@@ -37,6 +42,7 @@ export const propertyDetailFields: FieldConfig[] = [
       { value: "EUR", label: "Euro" },
       { value: "USD", label: "Dollar" },
     ],
+    rules: [{ required: true }],
   },
   {
     name: "rooms",
@@ -50,6 +56,7 @@ export const propertyDetailFields: FieldConfig[] = [
     label: "Star Rating",
     span: 4,
     component: "InputNumber",
+    max: 5,
     rules: [{ required: true }],
   },
   {

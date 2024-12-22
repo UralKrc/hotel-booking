@@ -1,15 +1,7 @@
 import React, { Fragment } from "react";
 import Carousel from "../../../common/Carousel";
 import { Container, StyledImage } from "./styles";
-
-interface PropertyImagesCarouselProps {
-  images: {
-    id: string;
-    url: string;
-    width?: number;
-    height?: number;
-  }[];
-}
+import { PropertyImagesCarouselProps } from "./types";
 
 const PropertyImagesCarousel: React.FC<PropertyImagesCarouselProps> = ({
   images,

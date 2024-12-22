@@ -1,4 +1,4 @@
-import { getCurrencySymbol } from "./getCurrencySymbol";
+import { getCurrencySymbol } from "../getCurrencySymbol";
 
 describe("getCurrencySymbol", () => {
   test("returns € for EUR", () => {
