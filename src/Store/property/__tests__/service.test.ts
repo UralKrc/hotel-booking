@@ -51,7 +51,7 @@ describe("property service", () => {
     const updatedProperty = { ...mockProperties[0], name: "Updated Property" };
     const property = await editProperty(updatedProperty);
     const storedProperties = JSON.parse(
-      localStorage.getItem("propertiesData") || "[]"
+      localStorage.getItem("propertiesData") || "null"
     );
     expect(property).toEqual(updatedProperty);
     expect(storedProperties[0]).toEqual(updatedProperty);
@@ -61,7 +61,7 @@ describe("property service", () => {
     localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
     const id = await removeProperty(mockProperties[0].id);
     const storedProperties = JSON.parse(
-      localStorage.getItem("propertiesData") || "[]"
+      localStorage.getItem("propertiesData") || "null"
     );
     expect(id).toEqual(mockProperties[0].id);
     expect(storedProperties).toEqual(mockProperties.slice(1));

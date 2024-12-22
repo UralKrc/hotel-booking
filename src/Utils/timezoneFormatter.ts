@@ -5,7 +5,7 @@ export const formatTimezone = (timezone: string) => {
       timeZone: timezone,
       hour: "2-digit",
       minute: "2-digit",
-      hour12: false,
+      hour12: false, // Use 24-hour format
     });
     return `${city} (${time})`;
   } catch (e) {

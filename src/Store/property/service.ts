@@ -53,7 +53,13 @@ export const fetchPropertyById = async (
 
 // Edit or add a property, updating local storage accordingly
 export const editProperty = async (property: Property): Promise<Property> => {
-  const properties = loadPropertiesFromLocalStorage();
+  let properties = loadPropertiesFromLocalStorage();
+
+  // Initialize properties as an empty array if it's null
+  if (properties === null) {
+    properties = [];
+  }
+
   const index = properties.findIndex((p) => p.id === property.id);
 
   // Update existing property or add new one

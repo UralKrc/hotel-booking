@@ -1,4 +1,4 @@
-import propertyReducer, { initialState } from "../slice";
+import propertySlice, { initialState } from "../slice";
 import {
   editPropertyThunk,
   fetchProperties,
@@ -10,7 +10,7 @@ import { mockProperties } from "../utils/mockData";
 describe("propertyReducer", () => {
   it("should handle fetchProperties.pending", () => {
     const action = { type: fetchProperties.pending.type };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: true,
@@ -23,7 +23,7 @@ describe("propertyReducer", () => {
       type: fetchProperties.fulfilled.type,
       payload: [mockProperties[0]],
     };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       properties: [mockProperties[0]],
@@ -36,7 +36,7 @@ describe("propertyReducer", () => {
       type: fetchProperties.rejected.type,
       payload: "An error occurred",
     };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: false,
@@ -46,7 +46,7 @@ describe("propertyReducer", () => {
 
   it("should handle fetchPropertyByIdThunk.pending", () => {
     const action = { type: fetchPropertyByIdThunk.pending.type };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: true,
@@ -59,7 +59,7 @@ describe("propertyReducer", () => {
       type: fetchPropertyByIdThunk.fulfilled.type,
       payload: mockProperties[0],
     };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       property: mockProperties[0],
@@ -72,7 +72,7 @@ describe("propertyReducer", () => {
       type: fetchPropertyByIdThunk.rejected.type,
       payload: "An error occurred",
     };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: false,
@@ -82,7 +82,7 @@ describe("propertyReducer", () => {
 
   it("should handle removePropertyThunk.pending", () => {
     const action = { type: removePropertyThunk.pending.type };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: true,
@@ -99,7 +99,7 @@ describe("propertyReducer", () => {
       type: removePropertyThunk.fulfilled.type,
       payload: mockProperties[0].id,
     };
-    const state = propertyReducer(initialStateWithProperties, action);
+    const state = propertySlice(initialStateWithProperties, action);
     expect(state).toEqual({
       ...initialState,
       properties: [],
@@ -112,7 +112,7 @@ describe("propertyReducer", () => {
       type: removePropertyThunk.rejected.type,
       payload: "An error occurred",
     };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: false,
@@ -122,7 +122,7 @@ describe("propertyReducer", () => {
 
   it("should handle editPropertyThunk.pending", () => {
     const action = { type: editPropertyThunk.pending.type };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: true,
@@ -141,7 +141,7 @@ describe("propertyReducer", () => {
       type: editPropertyThunk.fulfilled.type,
       payload: updatedProperty,
     };
-    const state = propertyReducer(initialStateWithProperties, action);
+    const state = propertySlice(initialStateWithProperties, action);
     expect(state).toEqual({
       ...initialState,
       properties: [updatedProperty],
@@ -155,7 +155,7 @@ describe("propertyReducer", () => {
       type: editPropertyThunk.rejected.type,
       payload: "An error occurred",
     };
-    const state = propertyReducer(initialState, action);
+    const state = propertySlice(initialState, action);
     expect(state).toEqual({
       ...initialState,
       loading: false,

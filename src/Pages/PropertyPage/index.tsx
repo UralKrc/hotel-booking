@@ -47,7 +47,6 @@ const PropertyPage: React.FC = () => {
         <PropertyImagesCarousel images={property.images} />
       ) : null}
       <Divider />
-
       <Row gutter={[8, 8]}>
         <Col xs={24} md={8}>
           <PropertyInformation

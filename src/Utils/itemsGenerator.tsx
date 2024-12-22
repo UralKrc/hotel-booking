@@ -18,6 +18,7 @@ import {
 import { getCurrencyIcon } from "./getCurrencyIcon";
 import { formatTimezone } from "./timezoneFormatter";
 
+// Generates a list of property information items for display
 export const generatePropertyInformationItems = (
   data: PropertyDetailsProps
 ): ItemProps[] => [
@@ -47,6 +48,7 @@ export const generatePropertyInformationItems = (
   },
 ];
 
+// Generates a list of contact information items for display
 export const generateContactItems = (
   data: ContactDetailsProps
 ): ItemProps[] => [
@@ -76,6 +78,7 @@ export const generateContactItems = (
   },
 ];
 
+// Generates a list of check-in and check-out items for display
 export const generateCheckInOutItems = (
   data: CheckInOutDetailsProps
 ): ItemProps[] => [
@@ -99,6 +102,7 @@ export const generateCheckInOutItems = (
   },
 ];
 
+// Generates breadcrumb items for navigation
 export const generateBreadcrumbItems = (propertyName: string) => [
   { title: "Properties", icon: "home", href: "/" },
   { title: "Property" },
