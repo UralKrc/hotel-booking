@@ -70,10 +70,10 @@ describe("Items Generator", () => {
       const items = generateContactItems(mockContactData);
 
       expect(items).toEqual([
-        { title: "Street", label: "123 Test St" },
-        { title: "City", label: "Test City" },
-        { title: "Country", label: "Test Country" },
-        { title: "Postcode", label: "12345" },
+        {
+          title: "Address",
+          label: "123 Test St 12345, Test City, Test Country",
+        },
         { title: "Email", label: "test@example.com" },
         { title: "Phone", label: "123-456-7890" },
         { title: "Website", label: "test.com" },

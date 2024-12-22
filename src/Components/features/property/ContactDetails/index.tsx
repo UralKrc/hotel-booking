@@ -8,7 +8,7 @@ const ContactDetails: React.FC<ContactDetailsProps> = (props) => {
 
   return (
     <Card title="Contact Details">
-      <PropertyItemList items={items} />
+      <PropertyItemList items={items} align="start" />
     </Card>
   );
 };

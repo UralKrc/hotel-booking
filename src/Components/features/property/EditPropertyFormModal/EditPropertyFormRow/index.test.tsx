@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { Form } from "antd";
 import { Provider } from "react-redux";
 import EditPropertyFormRow from ".";
-import { setupMatchMedia } from "../../../../../Store/property/utils/testUtils";
+import { setupMatchMedia } from "../../../../../Store/property/utils/setupMatchMedia";
 import store from "../../../../../Store/store";
 import { FieldConfig } from "../../../../../Types/types";
 

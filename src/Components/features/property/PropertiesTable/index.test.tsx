@@ -6,7 +6,7 @@ import { MemoryRouter, useLocation } from "react-router-dom";
 import PropertiesTable from ".";
 import propertyReducer from "../../../../Store/property/reducer";
 import { mockProperties } from "../../../../Store/property/utils/mockData";
-import { setupMatchMedia } from "../../../../Store/property/utils/testUtils";
+import { setupMatchMedia } from "../../../../Store/property/utils/setupMatchMedia";
 
 // Mock Ant Design Table
 jest.mock("antd", () => {

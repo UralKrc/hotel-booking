@@ -8,7 +8,7 @@ const PropertyInformation: React.FC<PropertyDetailsProps> = (props) => {
   const items = generatePropertyInformationItems(props);
 
   return (
-    <Card title="Availability">
+    <Card title="General Information">
       <PropertyItemList items={items} />
     </Card>
   );

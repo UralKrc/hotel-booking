@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import PropertyHeader from ".";
 import { mockProperty1 as mockProperty } from "../../../../Store/property/utils/mockData";
-import { setupMatchMedia } from "../../../../Store/property/utils/testUtils";
+import { setupMatchMedia } from "../../../../Store/property/utils/setupMatchMedia";
 import store from "../../../../Store/store";
 import { theme } from "../../../../Theme/theme";
 

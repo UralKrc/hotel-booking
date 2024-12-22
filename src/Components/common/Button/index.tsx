@@ -1,11 +1,6 @@
-import { ButtonProps } from "antd/es/button";
 import React from "react";
 import { StyledButton } from "./styles";
-
-interface ButtonComponentProps extends ButtonProps {
-  text: string;
-  withMargin?: boolean;
-}
+import { ButtonComponentProps } from "./types";
 
 const Button: React.FC<ButtonComponentProps> = ({
   onClick,

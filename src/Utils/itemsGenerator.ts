@@ -36,20 +36,8 @@ export const generateContactItems = (
 ): ItemProps[] => {
   return [
     {
-      title: "Street",
-      label: data.addressLine1,
-    },
-    {
-      title: "City",
-      label: data.city,
-    },
-    {
-      title: "Country",
-      label: data.country,
-    },
-    {
-      title: "Postcode",
-      label: data.postcode,
+      title: "Address",
+      label: `${data.addressLine1} ${data.postcode}, ${data.city}, ${data.country}`,
     },
     {
       title: "Email",
