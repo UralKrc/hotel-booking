@@ -4,12 +4,17 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import PropertyHeader from ".";
 import { mockProperty1 as mockProperty } from "../../../../Store/property/utils/mockData";
+import { setupMatchMedia } from "../../../../Store/property/utils/testUtils";
 import store from "../../../../Store/store";
 import { theme } from "../../../../Theme/theme";
 
 const mockSetIsEditing = jest.fn();
 
 describe("PropertyHeader", () => {
+  beforeAll(() => {
+    setupMatchMedia();
+  });
+
   it("renders property details correctly", () => {
     render(
       <Provider store={store}>

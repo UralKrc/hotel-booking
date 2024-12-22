@@ -1,4 +1,4 @@
-import { Property } from "../../../Types/types";
+import { FieldConfig, Property } from "../../../Types/types";
 
 export const mockProperty1: Property = {
   id: "1",
@@ -45,3 +45,35 @@ export const mockProperty2: Property = {
 };
 
 export const mockProperties: Property[] = [mockProperty1, mockProperty2];
+
+export const mockFields: FieldConfig[] = [
+  {
+    name: "name",
+    label: "Name",
+    rules: [{ required: true }],
+  },
+  {
+    name: "description",
+    label: "Description",
+    component: "TextArea",
+  },
+  {
+    name: "status",
+    label: "Status",
+    component: "Switch",
+  },
+  {
+    name: "starRating",
+    label: "Star Rating",
+    component: "InputNumber",
+  },
+  {
+    name: "country",
+    label: "Country",
+    component: "Select",
+    options: [
+      { value: "NL", label: "Netherlands" },
+      { value: "US", label: "United States" },
+    ],
+  },
+];

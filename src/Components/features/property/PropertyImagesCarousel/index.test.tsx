@@ -1,24 +1,15 @@
 import "@testing-library/jest-dom";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
 import PropertyImagesCarousel from ".";
+import { setupMatchMedia } from "../../../../Store/property/utils/testUtils";
 import { theme } from "../../../../Theme/theme";
 
-// Mock matchMedia for Ant Design
-Object.defineProperty(window, "matchMedia", {
-  value: (query: string) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  }),
-});
-
 describe("PropertyImagesCarousel", () => {
+  beforeAll(() => {
+    setupMatchMedia();
+  });
+
   const mockImages = [
     {
       id: "1",
