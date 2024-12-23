@@ -2,8 +2,8 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
 import PropertyImagesCarousel from ".";
-import { setupMatchMedia } from "../../../../Store/property/utils/setupMatchMedia";
-import { theme } from "../../../../Theme/theme";
+import { setupMatchMedia } from "../../../../../Store/property/utils/setupMatchMedia";
+import { theme } from "../../../../../Theme/theme";
 
 describe("PropertyImagesCarousel", () => {
   beforeAll(() => {

@@ -13,6 +13,8 @@ import {
   CheckInOutDetailsProps,
   ContactDetailsProps,
   ItemProps,
+  Policy,
+  PolicyFormItem,
   PropertyDetailsProps,
 } from "../Types/types";
 import { getCurrencyIcon } from "./getCurrencyIcon";
@@ -108,3 +110,47 @@ export const generateBreadcrumbItems = (propertyName: string) => [
   { title: "Property" },
   { title: propertyName },
 ];
+
+export const generatePolicyItems = (policy: Policy): PolicyFormItem[] => {
+  return [
+    {
+      label: "Name",
+      value: policy.name,
+      color: "blue",
+    },
+    {
+      label: "Description",
+      value: policy.description,
+      color: "purple",
+    },
+    {
+      label: "Amount",
+      value: `${policy.amount}${policy.chargeType === "percentage" ? "%" : ""}`,
+      color: "green",
+    },
+    {
+      label: "Charge Type",
+      value: policy.chargeType,
+      color: "orange",
+    },
+    ...(policy.reference
+      ? [
+          {
+            label: "Reference",
+            value: policy.reference,
+            color: "red",
+          },
+          {
+            label: "Days",
+            value: policy.days,
+            color: "cyan",
+          },
+          {
+            label: "Hours",
+            value: policy.hours,
+            color: "magenta",
+          },
+        ]
+      : []),
+  ];
+};

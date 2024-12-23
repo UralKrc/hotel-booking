@@ -1,41 +1,30 @@
-import { Flex } from "antd";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "../../Components/common/Button";
+import Loading from "../../Components/common/Loading";
 import PropertiesTable from "../../Components/features/property/PropertiesTable";
 import { getPropertiesSelector } from "../../Store/property/selectors";
-import { fetchProperties } from "../../Store/property/thunks";
+import { initializeDataThunk } from "../../Store/property/thunks";
 import { AppDispatch } from "../../Store/store";
-import { RootState } from "../../Types/types";
+import { Property, RootState } from "../../Types/types";
 import { Container } from "./styles";
 
-const PropertiesPage = () => {
+const PropertiesPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const properties = useSelector(getPropertiesSelector);
-  const error = useSelector((state: RootState) => state.property.error);
+  const properties: Property[] = useSelector(getPropertiesSelector);
+  const loading = useSelector((state: RootState) => state.property.loading);
 
   useEffect(() => {
-    dispatch(fetchProperties());
-  }, [dispatch]);
+    if (!properties.length) {
+      dispatch(initializeDataThunk());
+    }
+  }, [dispatch, properties.length]);
 
-  const refetchInitialData = () => {
-    localStorage.removeItem("propertiesData"); // Clear local storage
-    window.location.reload(); // Reload the page
-  };
-
+  if (loading) return <Loading />;
+  console.log(properties);
   return (
     <Container>
-      <h3>Properties</h3>
-      {error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <Flex vertical gap="small">
-          <PropertiesTable properties={properties} />
-          {properties.length === 0 ? (
-            <Button onClick={refetchInitialData} text="Refetch Initial Data" />
-          ) : null}
-        </Flex>
-      )}
+      <h1>Properties</h1>
+      <PropertiesTable properties={properties} />
     </Container>
   );
 };

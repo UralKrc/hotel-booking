@@ -1,7 +1,7 @@
 import { Rule } from "antd/es/form";
 import { ReactNode } from "react";
 
-export interface Property {
+export interface PropertyDetails {
   id: string;
   addressLine1: string;
   checkInTime: string;
@@ -23,9 +23,25 @@ export interface Property {
   timezone: string;
 }
 
+export interface Property {
+  property: PropertyDetails;
+  policies: Policy[];
+}
+
+export interface Policy {
+  propertyId: string;
+  id: string;
+  name: string;
+  description: string;
+  amount: number;
+  chargeType: string;
+  reference?: string; // Optional, only for cancellation policies
+  days?: number; // Optional, only for cancellation policies
+  hours?: number; // Optional, only for cancellation policies
+}
+
 export interface PropertyState {
   properties: Property[];
-  property: Property | null;
   loading: boolean;
   error: string | null;
 }
@@ -43,13 +59,13 @@ export interface ItemProps {
 
 export interface PropertyDetailsProps
   extends Pick<
-    Property,
+    PropertyDetails,
     "currency" | "rooms" | "status" | "isAvailableForPartnerships"
   > {}
 
 export interface ContactDetailsProps
   extends Pick<
-    Property,
+    PropertyDetails,
     | "city"
     | "country"
     | "addressLine1"
@@ -60,7 +76,7 @@ export interface ContactDetailsProps
   > {}
 
 export interface CheckInOutDetailsProps
-  extends Pick<Property, "checkInTime" | "checkOutTime" | "timezone"> {}
+  extends Pick<PropertyDetails, "checkInTime" | "checkOutTime" | "timezone"> {}
 
 export interface BreadcrumbProps {
   title: string;
@@ -76,6 +92,12 @@ export interface FieldConfig {
   component?: string;
   options?: { value: string; label: string }[];
   max?: number;
+}
+
+export interface PolicyFormItem {
+  label: string;
+  value: any;
+  color: string;
 }
 
 export interface ComponentMap {

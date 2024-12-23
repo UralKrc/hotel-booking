@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import Carousel from "../../../common/Carousel";
+import Carousel from "../../../../common/Carousel";
 import { Container, StyledImage } from "./styles";
 import { PropertyImagesCarouselProps } from "./types";
 

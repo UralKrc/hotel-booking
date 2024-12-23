@@ -70,8 +70,8 @@ describe("PropertiesTable", () => {
     renderTable();
 
     mockProperties.forEach((property) => {
-      expect(screen.getByText(property.id)).toBeInTheDocument();
-      expect(screen.getByText(property.name)).toBeInTheDocument();
+      expect(screen.getByText(property.property.id)).toBeInTheDocument();
+      expect(screen.getByText(property.property.name)).toBeInTheDocument();
     });
   });
 
@@ -92,7 +92,7 @@ describe("PropertiesTable", () => {
     fireEvent.click(viewButtons[0]);
 
     expect(screen.getByTestId("location-display")).toHaveTextContent(
-      `/property/${mockProperties[0].id}`
+      `/property/${mockProperties[0].property.id}`
     );
   });
 

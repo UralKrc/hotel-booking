@@ -1,102 +1,65 @@
 import { FieldConfig } from "../Types/types";
 
-export const contactDetailsFields: FieldConfig[] = [
-  { name: "city", label: "City", span: 6, rules: [{ required: true }] },
-  { name: "country", label: "Country", span: 6, rules: [{ required: true }] },
-  {
-    name: "addressLine1",
-    label: "Street",
-    span: 6,
-    rules: [{ required: true }],
-  },
-  { name: "postcode", label: "Postcode", span: 6, rules: [{ required: true }] },
-  {
-    name: "email",
-    label: "Email",
-    span: 8,
-    rules: [{ type: "email", message: "Please enter a valid email" }],
-  },
-  { name: "phoneNumber", label: "Phone Number", span: 8 },
-  { name: "domain", label: "Website", span: 8, rules: [{ required: true }] },
-];
-
-export const propertyDetailFields: FieldConfig[] = [
+export const policyFields: FieldConfig[] = [
   {
     name: "name",
-    label: "Name",
-    rules: [{ required: true }],
+    label: "Policy Name",
+    rules: [{ required: true, message: "Please enter the policy name" }],
     component: "Input",
   },
   {
     name: "description",
     label: "Description",
-    rules: [{ required: true }],
+    rules: [{ required: true, message: "Please enter the description" }],
     component: "TextArea",
   },
   {
-    name: "currency",
-    label: "Currency",
-    span: 4,
+    name: "amount",
+    label: "Amount",
+    rules: [{ required: true, message: "Please enter the amount" }],
+    component: "InputNumber",
+  },
+  {
+    name: "chargeType",
+    label: "Charge Type",
+    rules: [{ required: true, message: "Please select the charge type" }],
     component: "Select",
     options: [
-      { value: "EUR", label: "Euro" },
-      { value: "USD", label: "Dollar" },
+      { value: "percentage", label: "Percentage" },
+      { value: "fixed", label: "Fixed" },
     ],
-    rules: [{ required: true }],
   },
   {
-    name: "rooms",
-    label: "Rooms",
-    span: 4,
-    component: "InputNumber",
-    rules: [{ required: true }],
-  },
-  {
-    name: "starRating",
-    label: "Star Rating",
-    span: 4,
-    component: "InputNumber",
-    max: 5,
-    rules: [{ required: true }],
-  },
-  {
-    name: "isAvailableForPartnerships",
-    label: "Partnerships",
-    span: 4,
-    component: "Switch",
-  },
-  {
-    name: "status",
-    label: "Status",
-    span: 6,
-    component: "Switch",
-  },
-];
-
-export const checkInOutFields: FieldConfig[] = [
-  {
-    name: "checkInTime",
-    label: "Check-In Time",
-    span: 8,
-    component: "TimePicker",
-    rules: [{ required: true }],
-  },
-  {
-    name: "checkOutTime",
-    label: "Check-Out Time",
-    component: "TimePicker",
-    span: 8,
-    rules: [{ required: true }],
-  },
-  {
-    name: "timezone",
-    label: "Timezone",
-    span: 8,
+    name: "reference",
+    label: "Reference",
     component: "Select",
     options: [
-      { value: "Europe/Amsterdam", label: "Europe/Amsterdam" },
-      { value: "Europe/Portugal", label: "Europe/Portugal" },
+      { value: "prior-to-arrival", label: "Prior to Arrival" },
+      { value: "after-booking", label: "After Booking" },
     ],
-    rules: [{ required: true }],
+  },
+  {
+    name: "days",
+    label: "Days",
+    component: "InputNumber",
+    rules: [
+      {
+        type: "number",
+        min: 0,
+        message: "Please enter a valid number of days",
+      },
+    ],
+  },
+  {
+    name: "hours",
+    label: "Hours",
+    component: "InputNumber",
+    rules: [
+      {
+        type: "number",
+        min: 0,
+        message: "Please enter a valid number of hours",
+      },
+    ],
   },
 ];

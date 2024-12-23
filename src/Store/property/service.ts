@@ -1,29 +1,35 @@
 import dayjs from "dayjs";
 import data from "../../data.json";
-import { Property } from "../../Types/types";
+import { Policy, Property, PropertyDetails } from "../../Types/types";
 
 const LOCAL_STORAGE_KEY = "propertiesData";
 
 // Load properties from local storage, returning an empty array if none are found
-export const loadPropertiesFromLocalStorage = (): Property[] => {
+export const loadPropertiesFromLocalStorage = (): {
+  property: PropertyDetails;
+  policies: Policy[];
+}[] => {
   const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-  return data ? JSON.parse(data) : null;
+  return data ? JSON.parse(data) : [];
 };
 
 // Save the given properties array to local storage
-export const savePropertiesToLocalStorage = (properties: Property[]): void => {
+export const savePropertiesToLocalStorage = (
+  properties: { property: PropertyDetails; policies: Policy[] }[]
+): void => {
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(properties));
 };
 
 // Load initial data from the JSON file, formatting date strings
-const loadInitialData = (): Property[] => {
-  return data.data.map((item: { property: Property }) => {
-    const property = item.property;
-
-    // Assume today's date for time-only strings
+export const loadInitialData = (): {
+  property: PropertyDetails;
+  policies: Policy[];
+}[] => {
+  const initialData = data.data.map((item) => {
+    const { property, policies } = item;
     const today = dayjs().format("YYYY-MM-DD");
 
-    return {
+    const formattedProperty: PropertyDetails = {
       ...property,
       checkInTime: dayjs(`${today}T${property.checkInTime}`).isValid()
         ? dayjs(`${today}T${property.checkInTime}`).toISOString()
@@ -32,12 +38,27 @@ const loadInitialData = (): Property[] => {
         ? dayjs(`${today}T${property.checkOutTime}`).toISOString()
         : "Invalid Date",
     };
+
+    const allPolicies: Policy[] = [
+      ...(policies.noShowPolicies || []),
+      ...(policies.cancellationPolicies || []),
+    ].map((policy) => ({ ...policy, propertyId: property.id }));
+
+    return {
+      property: formattedProperty,
+      policies: allPolicies,
+    };
   });
+
+  console.log("Loaded Initial Data:", initialData); // Debugging log
+  return initialData;
 };
 
-export const getProperties = async (): Promise<Property[]> => {
+export const getProperties = async (): Promise<
+  { property: PropertyDetails; policies: Policy[] }[]
+> => {
   const localStorageData = loadPropertiesFromLocalStorage();
-  if (!localStorageData) {
+  if (!localStorageData.length) {
     return loadInitialData();
   }
   return localStorageData;
@@ -46,43 +67,44 @@ export const getProperties = async (): Promise<Property[]> => {
 // Fetch a property by its ID, returning null if not found
 export const fetchPropertyById = async (
   id: string
-): Promise<Property | null> => {
+): Promise<{ property: PropertyDetails; policies: Policy[] } | null> => {
   const properties = await getProperties();
-  return properties.find((property) => property.id === id) || null;
+  return properties.find((property) => property.property.id === id) || null;
 };
 
-// Edit or add a property, updating local storage accordingly
-export const editProperty = async (property: Property): Promise<Property> => {
+// Edit policies of a property, updating local storage
+export const editPoliciesService = async (
+  id: string,
+  policies: Policy[]
+): Promise<{ id: string; policies: Policy[] }> => {
   let properties = loadPropertiesFromLocalStorage();
+  const index = properties.findIndex((p) => p.property.id === id);
 
-  // Initialize properties as an empty array if it's null
-  if (properties === null) {
-    properties = [];
-  }
-
-  const index = properties.findIndex((p) => p.id === property.id);
-
-  // Update existing property or add new one
   if (index !== -1) {
-    properties[index] = property;
-  } else {
-    properties.push(property);
+    properties[index].policies = policies;
+    savePropertiesToLocalStorage(properties);
+    return { id, policies };
   }
 
-  // Save updated properties to local storage
-  savePropertiesToLocalStorage(properties);
-  return property;
+  throw new Error("Property not found");
 };
 
-// Remove a property by ID, updating local storage
-export const removeProperty = async (id: string): Promise<string> => {
-  let properties = loadInitialData();
+export const editPolicyService = async (policy: Policy): Promise<Policy> => {
+  let properties = loadPropertiesFromLocalStorage();
+  let policyUpdated = false;
 
-  // Filter out the property to be removed
-  properties = properties.filter((property) => property.id !== id);
+  properties.forEach((property) => {
+    const policyIndex = property.policies.findIndex((p) => p.id === policy.id);
+    if (policyIndex !== -1) {
+      property.policies[policyIndex] = policy;
+      policyUpdated = true;
+    }
+  });
 
-  // Save updated properties to local storage
-  savePropertiesToLocalStorage(properties);
+  if (policyUpdated) {
+    savePropertiesToLocalStorage(properties);
+    return policy;
+  }
 
-  return id;
+  throw new Error("Policy not found");
 };

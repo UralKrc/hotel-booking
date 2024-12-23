@@ -1,24 +1,37 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { RootState } from "../../Types/types";
+import { RootState } from "../store";
 
+// Selector to get the entire property state
 const getPropertyState = (state: RootState) => state.property;
 
-export const getPropertiesSelector = createSelector(
-  [getPropertyState],
-  (propertyState) => propertyState.properties
-);
+// Selector to get all properties
+export const getPropertiesSelector = (state: RootState) =>
+  state.property.properties;
 
-export const getPropertyByIdSelector = createSelector(
-  [getPropertyState],
-  (propertyState) => propertyState.property
-);
+// Selector to get a property by its ID
+export const getPropertyByIdSelector = (id: string) =>
+  createSelector([getPropertiesSelector], (properties) =>
+    properties.find((property) => property.property.id === id)
+  );
 
+// Selector to get the loading state
 export const getPropertyLoadingSelector = createSelector(
   [getPropertyState],
   (propertyState) => propertyState.loading
 );
 
+// Selector to get the error state
 export const getPropertyErrorSelector = createSelector(
   [getPropertyState],
   (propertyState) => propertyState.error
 );
+
+export const getPoliciesByPropertyIdSelector =
+  (propertyId: string) => (state: RootState) => {
+    console.log(state.property, 123123123);
+    const property = state.property.properties.find(
+      (p) => p.property.id === propertyId
+    );
+    console.log(property);
+    return property ? property.policies : [];
+  };

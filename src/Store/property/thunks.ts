@@ -1,10 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Property } from "../../Types/types";
+import { Policy, Property } from "../../Types/types";
 import {
-  editProperty,
+  editPoliciesService,
+  editPolicyService,
   fetchPropertyById,
   getProperties,
-  removeProperty,
+  loadInitialData,
 } from "./service";
 
 const handleError = (error: unknown): string => {
@@ -46,32 +47,28 @@ export const fetchPropertyByIdThunk = createAsyncThunk<
   }
 });
 
-export const removePropertyThunk = createAsyncThunk<
-  string,
-  string,
-  { rejectValue: string }
->("property/removeProperty", async (id, { rejectWithValue }) => {
-  try {
-    await removeProperty(id);
-    return id;
-  } catch (error) {
-    const message = handleError(error);
-    return rejectWithValue(message);
+export const editPoliciesThunk = createAsyncThunk(
+  "property/editPolicies",
+  async ({ id, policies }: { id: string; policies: Policy[] }) => {
+    return await editPoliciesService(id, policies);
   }
-});
+);
 
-export const editPropertyThunk = createAsyncThunk<
-  Property,
-  Property,
-  { rejectValue: string }
->("property/editProperty", async (property, { rejectWithValue }) => {
-  try {
-    const updatedProperty = await editProperty(property);
-
-    return updatedProperty;
-  } catch (error) {
-    const message = handleError(error);
-
-    return rejectWithValue(message);
+export const editPolicyThunk = createAsyncThunk(
+  "property/editPolicy",
+  async (policy: Policy) => {
+    return await editPolicyService(policy);
   }
-});
+);
+
+export const initializeDataThunk = createAsyncThunk(
+  "property/initializeData",
+  async (_, { rejectWithValue }) => {
+    try {
+      const initialData = loadInitialData();
+      return initialData;
+    } catch (error) {
+      return rejectWithValue("Failed to initialize data");
+    }
+  }
+);

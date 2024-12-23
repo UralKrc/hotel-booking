@@ -4,7 +4,7 @@ import { ButtonComponentProps } from "./types";
 
 const Button: React.FC<ButtonComponentProps> = ({
   onClick,
-  text,
+  text = "",
   type = "primary",
   icon,
   shape,

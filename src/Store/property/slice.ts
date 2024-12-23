@@ -1,16 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Property, PropertyState } from "../../Types/types";
-import { savePropertiesToLocalStorage } from "./service";
 import {
-  editPropertyThunk,
+  Policy,
+  Property,
+  PropertyDetails,
+  PropertyState,
+} from "../../Types/types";
+import {
+  editPolicyThunk,
   fetchProperties,
   fetchPropertyByIdThunk,
-  removePropertyThunk,
+  initializeDataThunk,
 } from "./thunks";
 
-export const initialState: PropertyState = {
+const initialState: PropertyState = {
   properties: [],
-  property: null,
   loading: false,
   error: null,
 };
@@ -18,7 +21,24 @@ export const initialState: PropertyState = {
 const propertySlice = createSlice({
   name: "property",
   initialState,
-  reducers: {},
+  reducers: {
+    setProperties(state, action: PayloadAction<Property[]>) {
+      state.properties = action.payload;
+    },
+    addProperty(state, action: PayloadAction<Property>) {
+      state.properties.push(action.payload);
+    },
+    updatePolicy(state, action: PayloadAction<Policy>) {
+      state.properties.forEach((property) => {
+        const policyIndex = property.policies.findIndex(
+          (p) => p.id === action.payload.id
+        );
+        if (policyIndex !== -1) {
+          property.policies[policyIndex] = action.payload;
+        }
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProperties.pending, (state) => {
@@ -43,7 +63,16 @@ const propertySlice = createSlice({
       .addCase(
         fetchPropertyByIdThunk.fulfilled,
         (state, action: PayloadAction<Property | null>) => {
-          state.property = action.payload;
+          if (action.payload) {
+            const index = state.properties.findIndex(
+              (p) => p.property.id === action.payload?.property.id
+            );
+            if (index !== -1) {
+              state.properties[index] = action.payload;
+            } else {
+              state.properties.push(action.payload);
+            }
+          }
           state.loading = false;
         }
       )
@@ -51,54 +80,54 @@ const propertySlice = createSlice({
         state.loading = false;
         state.error = action.payload || "Failed to fetch the property.";
       })
-      .addCase(removePropertyThunk.pending, (state) => {
+      .addCase(editPolicyThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
-        removePropertyThunk.fulfilled,
-        (state, action: PayloadAction<string>) => {
-          state.properties = state.properties.filter(
-            (property: Property) => property.id !== action.payload
-          );
+        editPolicyThunk.fulfilled,
+        (state, action: PayloadAction<Policy>) => {
+          state.properties.forEach((property) => {
+            const policyIndex = property.policies.findIndex(
+              (p) => p.id === action.payload.id
+            );
+            if (policyIndex !== -1) {
+              property.policies[policyIndex] = action.payload;
+            }
+          });
           state.loading = false;
-          savePropertiesToLocalStorage(state.properties);
         }
       )
-      .addCase(removePropertyThunk.rejected, (state, action) => {
+      .addCase(editPolicyThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to remove the property.";
+        state.error =
+          typeof action.payload === "string"
+            ? action.payload
+            : "Failed to edit policy.";
       })
-      .addCase(editPropertyThunk.pending, (state) => {
+      .addCase(initializeDataThunk.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(
-        editPropertyThunk.fulfilled,
-        (state, action: PayloadAction<Property>) => {
-          const index = state.properties.findIndex(
-            (property) => property.id === action.payload.id
-          );
-          if (index !== -1) {
-            state.properties[index] = action.payload;
-          } else {
-            state.properties.push(action.payload);
-          }
-
-          // Update the currently viewed property if it matches the edited property
-          if (state.property && state.property.id === action.payload.id) {
-            state.property = action.payload;
-          }
-
+        initializeDataThunk.fulfilled,
+        (
+          state,
+          action: PayloadAction<
+            { property: PropertyDetails; policies: Policy[] }[]
+          >
+        ) => {
           state.loading = false;
-          savePropertiesToLocalStorage(state.properties);
+          state.properties = action.payload;
         }
       )
-      .addCase(editPropertyThunk.rejected, (state, action) => {
+      .addCase(initializeDataThunk.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to edit the property.";
+        state.error = action.payload as string;
       });
   },
 });
 
+export const { setProperties, addProperty, updatePolicy } =
+  propertySlice.actions;
 export default propertySlice.reducer;

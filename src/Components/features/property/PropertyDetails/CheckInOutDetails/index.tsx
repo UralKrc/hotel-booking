@@ -1,7 +1,7 @@
-import { CheckInOutDetailsProps } from "../../../../Types/types";
-import { generateCheckInOutItems } from "../../../../Utils/itemsGenerator";
-import Card from "../../../common/Card";
-import PropertyItemList from "../../../common/ItemList";
+import { CheckInOutDetailsProps } from "../../../../../Types/types";
+import { generateCheckInOutItems } from "../../../../../Utils/itemsGenerator";
+import Card from "../../../../common/Card";
+import PropertyItemList from "../../../../common/ItemList";
 
 const CheckInOutDetails: React.FC<CheckInOutDetailsProps> = (props) => {
   const items = generateCheckInOutItems(props);
