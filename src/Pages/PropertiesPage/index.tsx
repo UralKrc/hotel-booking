@@ -14,10 +14,10 @@ const PropertiesPage: React.FC = () => {
   const loading = useSelector((state: RootState) => state.property.loading);
 
   useEffect(() => {
-    if (!properties.length) {
+    if (!properties) {
       dispatch(initializeDataThunk());
     }
-  }, [dispatch, properties.length]);
+  }, [dispatch, properties]);
 
   if (loading) return <Loading />;
 

@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Policy, Property } from "../../Types/types";
 import {
-  editPoliciesService,
   editPolicyService,
   fetchPropertyById,
   getProperties,
@@ -46,13 +45,6 @@ export const fetchPropertyByIdThunk = createAsyncThunk<
     return rejectWithValue(message);
   }
 });
-
-export const editPoliciesThunk = createAsyncThunk(
-  "property/editPolicies",
-  async ({ id, policies }: { id: string; policies: Policy[] }) => {
-    return await editPoliciesService(id, policies);
-  }
-);
 
 export const editPolicyThunk = createAsyncThunk(
   "property/editPolicy",
