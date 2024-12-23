@@ -5,6 +5,7 @@ import {
   fetchPropertyById,
   getProperties,
   loadInitialData,
+  loadPropertiesFromSessionStorage,
 } from "./service";
 
 const handleError = (error: unknown): string => {
@@ -46,17 +47,27 @@ export const fetchPropertyByIdThunk = createAsyncThunk<
   }
 });
 
-export const editPolicyThunk = createAsyncThunk(
-  "property/editPolicy",
-  async (policy: Policy) => {
+export const editPolicyThunk = createAsyncThunk<
+  Policy,
+  Policy,
+  { rejectValue: string }
+>("property/editPolicy", async (policy, { rejectWithValue }) => {
+  try {
     return await editPolicyService(policy);
+  } catch (error) {
+    const message = handleError(error);
+    return rejectWithValue(message);
   }
-);
+});
 
 export const initializeDataThunk = createAsyncThunk(
   "property/initializeData",
   async (_, { rejectWithValue }) => {
     try {
+      const sessionData = loadPropertiesFromSessionStorage();
+      if (sessionData) {
+        return sessionData;
+      }
       const initialData = loadInitialData();
       return initialData;
     } catch (error) {

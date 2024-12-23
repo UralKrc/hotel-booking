@@ -28,10 +28,9 @@ export const getPropertyErrorSelector = createSelector(
 
 export const getPoliciesByPropertyIdSelector =
   (propertyId: string) => (state: RootState) => {
-    console.log(state.property, 123123123);
     const property = state.property.properties.find(
       (p) => p.property.id === propertyId
     );
-    console.log(property);
+
     return property ? property.policies : [];
   };

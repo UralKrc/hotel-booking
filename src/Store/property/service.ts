@@ -66,6 +66,7 @@ export const getProperties = async (): Promise<
   { property: PropertyDetails; policies: Policy[] }[]
 > => {
   const sessionStorageData = loadPropertiesFromSessionStorage();
+
   if (!sessionStorageData) {
     return loadInitialData();
   }
