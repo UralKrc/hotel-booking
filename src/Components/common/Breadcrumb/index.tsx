@@ -3,16 +3,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BreadcrumbProps } from "./types";
 
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, ...rest }) => {
-  return (
-    <AntBreadcrumb {...rest}>
-      {items.map((item, index) => (
-        <AntBreadcrumb.Item key={index}>
-          {item.href ? <Link to={item.href}>{item.title}</Link> : item.title}
-        </AntBreadcrumb.Item>
-      ))}
-    </AntBreadcrumb>
-  );
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
+  const breadcrumbItems = items.map((item) => ({
+    title: item.href ? <Link to={item.href}>{item.title}</Link> : item.title,
+  }));
+
+  return <AntBreadcrumb items={breadcrumbItems} />;
 };
 
 export default Breadcrumb;

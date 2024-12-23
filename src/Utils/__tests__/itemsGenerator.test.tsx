@@ -222,7 +222,8 @@ describe("Items Generator", () => {
       reference: "REF123",
       days: 5,
       hours: 12,
-      // Add other necessary fields based on your Policy type
+      propertyId: "123",
+      id: "123",
     };
 
     it("generates correct policy items", () => {
