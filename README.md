@@ -3,8 +3,8 @@
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/UralKrc/katanox-frontend-assessment.git
-   cd katanox-frontend-assessment
+   git clone https://github.com/UralKrc/hotel-booking.git
+   cd hotel-booking
    ```
 
 2. **Install Dependencies**
@@ -127,25 +127,6 @@ The E2E tests cover two main areas:
 
 The tests use mock data that matches the application's data structure. This ensures consistent testing across different environments.
 
-### Key Features Tested
-
-- Table rendering and navigation
-- Property details display
-- Policy card display and editing
-- Form interactions (inputs, selects)
-- Data persistence after edits
-- UI element visibility and interactions
-
-### Testing Approach
-
-- **Unit Tests**: Validate individual components, reducers, and utility functions.
-- **Integration Tests**: Would be useful to test the integration of different components and services. (Tech debt)
-- **End-to-End Tests**: Would be useful to test the entire application.
-
-_Note: Implement tests as per the project's requirements and ensure coverage for critical functionalities._
-
-## Technical Decisions
-
 ### State Management with Redux Toolkit
 
 Utilized Redux Toolkit to simplify Redux setup, improve code maintainability, and leverage built-in best practices.
@@ -178,40 +159,8 @@ Adopted a modular component-based architecture for scalability and reusability.
 - **Loading States**: Provided visual feedback during data fetching with a Loading component.
 - **Responsive Design**: Ensured the application is usable across various device sizes.
 
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. **Fork the Repository**
-
-   Click the "Fork" button at the top right of the repository page.
-
-2. **Create a Feature Branch**
-
-   ```bash
-   git checkout -b feature/YourFeatureName
-   ```
-
-3. **Commit Your Changes**
-
-   ```bash
-   git commit -m "Add Your Feature"
-   ```
-
-4. **Push to the Branch**
-
-   ```bash
-   git push origin feature/YourFeatureName
-   ```
-
-5. **Open a Pull Request**
-
-   Navigate to the repository on GitHub and open a pull request describing your changes.
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
 ---
-
-_Thank you for reviewing my solution to the Katanox Coding Challenge! I look forward to your feedback._
