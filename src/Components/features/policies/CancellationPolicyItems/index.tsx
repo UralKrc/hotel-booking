@@ -13,7 +13,11 @@ const CancellationPolicyItems: React.FC<CancellationPolicyItemsProps> = ({
       <h2>Cancellation Policies</h2>
       <Row gutter={[8, 8]}>
         {policies.map((policy: Policy) => (
-          <PolicyCardForm key={policy.id} policy={policy} onSave={onSave} />
+          <PolicyCardForm
+            key={policy.id}
+            policy={policy}
+            onSave={onSave}
+          />
         ))}
       </Row>
     </div>
