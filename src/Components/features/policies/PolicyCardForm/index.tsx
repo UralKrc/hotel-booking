@@ -51,7 +51,7 @@ const PolicyCardForm: React.FC<PolicyCardFormProps> = ({
         <Form layout="vertical">
           {items.map((item) => (
             <Form.Item key={item.label}>
-              <Flex align="center" gap="small">
+              <Flex align="center" gap="small" wrap>
                 <PolicyItemLabel>{item.label}:</PolicyItemLabel>
                 {isEditing ? (
                   item.label === "Amount" ? (
