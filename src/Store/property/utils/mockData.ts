@@ -1,4 +1,4 @@
-import { FieldConfig, Property } from "../../../Types/types";
+import { Property } from "../../../Types/types";
 
 export const mockProperties: Property[] = [
   {
@@ -6,8 +6,8 @@ export const mockProperties: Property[] = [
       id: "1YK15JGO",
       name: "Hotel Amsterdam",
       addressLine1: "Rokin 92",
-      checkInTime: "2024-12-22T15:00:00.000Z",
-      checkOutTime: "2024-12-22T09:00:00.000Z",
+      checkInTime: "2024-12-23T15:00:00.000Z",
+      checkOutTime: "2024-12-23T09:00:00.000Z",
       city: "Amsterdam",
       country: "Netherlands",
       currency: "EUR",
@@ -101,38 +101,6 @@ export const mockProperties: Property[] = [
         hours: 14,
         propertyId: "VY32018P",
       },
-    ],
-  },
-];
-
-export const mockFields: FieldConfig[] = [
-  {
-    name: "name",
-    label: "Name",
-    rules: [{ required: true }],
-  },
-  {
-    name: "description",
-    label: "Description",
-    component: "TextArea",
-  },
-  {
-    name: "status",
-    label: "Status",
-    component: "Switch",
-  },
-  {
-    name: "starRating",
-    label: "Star Rating",
-    component: "InputNumber",
-  },
-  {
-    name: "country",
-    label: "Country",
-    component: "Select",
-    options: [
-      { value: "NL", label: "Netherlands" },
-      { value: "US", label: "United States" },
     ],
   },
 ];

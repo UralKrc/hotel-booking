@@ -1,12 +1,8 @@
+import { Row } from "antd";
 import React from "react";
 import { Policy } from "../../../../Types/types";
-import PolicyCard from "../PolicyCard";
-import { Row } from "antd";
-
-interface NoShowPolicyItemsProps {
-  policies: Policy[];
-  onSave: (updatedPolicy: Policy) => void;
-}
+import PolicyCardForm from "../PolicyCardForm";
+import { NoShowPolicyItemsProps } from "./types";
 
 const NoShowPolicyItems: React.FC<NoShowPolicyItemsProps> = ({
   policies,
@@ -16,8 +12,8 @@ const NoShowPolicyItems: React.FC<NoShowPolicyItemsProps> = ({
     <div>
       <h2>No Show Policies</h2>
       <Row gutter={[8, 8]}>
-        {policies.map((policy) => (
-          <PolicyCard key={policy.id} policy={policy} onSave={onSave} />
+        {policies.map((policy: Policy) => (
+          <PolicyCardForm key={policy.id} policy={policy} onSave={onSave} />
         ))}
       </Row>
     </div>

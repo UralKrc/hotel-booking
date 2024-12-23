@@ -2,7 +2,6 @@ import { Flex } from "antd";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 0 0.5rem;
   max-width: 1200px;
   margin: 0 auto;
 `;

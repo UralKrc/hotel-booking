@@ -1,3 +1,4 @@
+import { RootState } from "../../store";
 import {
   getPropertiesSelector,
   getPropertyByIdSelector,
@@ -7,28 +8,38 @@ import {
 import { mockProperties } from "../utils/mockData";
 
 describe("property selectors", () => {
-  const state = {
+  const state: RootState = {
     property: {
-      properties: [mockProperties[0]],
-      property: mockProperties[0],
+      properties: mockProperties,
       loading: false,
       error: null,
     },
   };
 
   it("should select properties", () => {
-    expect(getPropertiesSelector(state)).toEqual([mockProperties[0]]);
+    const selectedProperties = getPropertiesSelector(state);
+    expect(selectedProperties).toEqual(mockProperties);
   });
 
-  it("should select current property", () => {
-    expect(getPropertyByIdSelector(state)).toEqual(mockProperties[0]);
+  it("should select a property by id", () => {
+    const selectedProperty = getPropertyByIdSelector(
+      mockProperties[0].property.id
+    )(state);
+    expect(selectedProperty).toEqual(mockProperties[0]);
+  });
+
+  it("should return undefined for a non-existent property id", () => {
+    const selectedProperty = getPropertyByIdSelector("non-existent-id")(state);
+    expect(selectedProperty).toBeUndefined();
   });
 
   it("should select loading state", () => {
-    expect(getPropertyLoadingSelector(state)).toBe(false);
+    const loading = getPropertyLoadingSelector(state);
+    expect(loading).toBe(false);
   });
 
   it("should select error state", () => {
-    expect(getPropertyErrorSelector(state)).toBeNull();
+    const error = getPropertyErrorSelector(state);
+    expect(error).toBeNull();
   });
 });

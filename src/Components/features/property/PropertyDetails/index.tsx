@@ -6,7 +6,6 @@ import ContactDetails from "./ContactDetails";
 import PropertyHeader from "./PropertyHeader";
 import PropertyImagesCarousel from "./PropertyImagesCarousel";
 import PropertyInformation from "./PropertyInformation";
-import { Container } from "./styles";
 
 interface PropertyDetailsProps {
   propertyDetails: PropertyDetailsInterface;
@@ -16,9 +15,8 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({
   propertyDetails,
 }) => {
   return (
-    <Container>
+    <>
       <PropertyHeader
-        id={propertyDetails.id}
         starRating={propertyDetails.starRating}
         name={propertyDetails.name}
         description={propertyDetails.description}
@@ -58,7 +56,7 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({
           />
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import data from "../../data.json";
-import { Policy, Property, PropertyDetails } from "../../Types/types";
+import { Policy, PropertyDetails } from "../../Types/types";
 
 const LOCAL_STORAGE_KEY = "propertiesData";
 
@@ -25,7 +25,7 @@ export const loadInitialData = (): {
   property: PropertyDetails;
   policies: Policy[];
 }[] => {
-  const initialData = data.data.map((item) => {
+  return data.data.map((item) => {
     const { property, policies } = item;
     const today = dayjs().format("YYYY-MM-DD");
 
@@ -39,19 +39,20 @@ export const loadInitialData = (): {
         : "Invalid Date",
     };
 
+    // Flatten the policies into a single array
     const allPolicies: Policy[] = [
       ...(policies.noShowPolicies || []),
       ...(policies.cancellationPolicies || []),
-    ].map((policy) => ({ ...policy, propertyId: property.id }));
+    ].map((policy) => ({
+      ...policy,
+      propertyId: property.id,
+    }));
 
     return {
       property: formattedProperty,
       policies: allPolicies,
     };
   });
-
-  console.log("Loaded Initial Data:", initialData); // Debugging log
-  return initialData;
 };
 
 export const getProperties = async (): Promise<

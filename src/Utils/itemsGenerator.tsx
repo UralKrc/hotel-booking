@@ -105,11 +105,28 @@ export const generateCheckInOutItems = (
 ];
 
 // Generates breadcrumb items for navigation
-export const generateBreadcrumbItems = (propertyName: string) => [
-  { title: "Properties", icon: "home", href: "/" },
-  { title: "Property" },
-  { title: propertyName },
-];
+export const generateBreadcrumbItems = (
+  pageType: string,
+  name?: string,
+  propertyId?: string
+) => {
+  switch (pageType) {
+    case "property":
+      return [
+        { title: "Properties", href: "/" },
+        { title: "Property" },
+        { title: name || "Unnamed Property" },
+      ];
+    case "policies":
+      return [
+        { title: "Properties", href: "/" },
+        { title: "Property", href: `/property/${propertyId}` },
+        { title: "Policies" },
+      ];
+    default:
+      return [];
+  }
+};
 
 export const generatePolicyItems = (policy: Policy): PolicyFormItem[] => {
   return [

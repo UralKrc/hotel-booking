@@ -11,6 +11,9 @@ import {
 } from "../../Store/property/thunks";
 import { AppDispatch } from "../../Store/store";
 import { Policy, RootState } from "../../Types/types";
+
+import Breadcrumb from "../../Components/common/Breadcrumb";
+import { generateBreadcrumbItems } from "../../Utils/itemsGenerator";
 import { Container } from "./styles";
 
 const PoliciesPage: React.FC = () => {
@@ -19,6 +22,7 @@ const PoliciesPage: React.FC = () => {
   const policies: Policy[] = useSelector((state: RootState) =>
     propertyId ? getPoliciesByPropertyIdSelector(propertyId)(state) : []
   );
+  const items = generateBreadcrumbItems("policies", undefined, propertyId);
 
   useEffect(() => {
     if (!policies.length) {
@@ -37,7 +41,8 @@ const PoliciesPage: React.FC = () => {
 
   return (
     <Container>
-      <h1>Policies for Property ID: {propertyId}</h1>
+      <Breadcrumb items={items} />
+      <h1>Property Policies</h1>
       <NoShowPolicyItems policies={noShowPolicies} onSave={handleSave} />
       <CancellationPolicyItems
         policies={cancellationPolicies}

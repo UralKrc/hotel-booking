@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Breadcrumb from "../../Components/common/Breadcrumb";
 import Loading from "../../Components/common/Loading";
 import PropertyDetails from "../../Components/features/property/PropertyDetails";
 import { getPropertyByIdSelector } from "../../Store/property/selectors";
 import { fetchPropertyByIdThunk } from "../../Store/property/thunks";
 import { AppDispatch } from "../../Store/store";
 import { RootState } from "../../Types/types";
+import { generateBreadcrumbItems } from "../../Utils/itemsGenerator";
+import { Container } from "./styles";
 
 const PropertyPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +19,11 @@ const PropertyPage: React.FC = () => {
     return getPropertyByIdSelector(id)(state);
   });
   const error = useSelector((state: RootState) => state.property.error);
+  const items = generateBreadcrumbItems(
+    "property",
+    property?.property.name,
+    property?.property.id
+  );
 
   useEffect(() => {
     if (id) {
@@ -33,7 +41,12 @@ const PropertyPage: React.FC = () => {
 
   const { property: propertyDetails } = property;
 
-  return <PropertyDetails propertyDetails={propertyDetails} />;
+  return (
+    <Container>
+      <Breadcrumb items={items} />
+      <PropertyDetails propertyDetails={propertyDetails} />
+    </Container>
+  );
 };
 
 export default PropertyPage;

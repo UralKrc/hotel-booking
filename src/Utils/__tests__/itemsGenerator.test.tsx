@@ -10,10 +10,12 @@ import {
   PhoneOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
+import { Policy } from "../../Types/types";
 import {
   generateBreadcrumbItems,
   generateCheckInOutItems,
   generateContactItems,
+  generatePolicyItems,
   generatePropertyInformationItems,
 } from "../itemsGenerator";
 
@@ -190,13 +192,119 @@ describe("Items Generator", () => {
   });
 
   describe("generateBreadcrumbItems", () => {
-    test("generates correct header items", () => {
-      const items = generateBreadcrumbItems("Test Property");
+    it("generates correct header items for property page", () => {
+      const items = generateBreadcrumbItems("property", "Test Property", "123");
 
       expect(items).toEqual([
-        { title: "Properties", icon: "home", href: "/" },
+        { title: "Properties", href: "/" },
         { title: "Property" },
         { title: "Test Property" },
+      ]);
+    });
+
+    it("generates correct header items for policies page", () => {
+      const items = generateBreadcrumbItems("policies", undefined, "123");
+
+      expect(items).toEqual([
+        { title: "Properties", href: "/" },
+        { title: "Property", href: "/property/123" },
+        { title: "Policies" },
+      ]);
+    });
+  });
+
+  describe("generatePolicyItems", () => {
+    const mockPolicy: Policy = {
+      name: "Test Policy",
+      description: "Test description",
+      amount: 100,
+      chargeType: "fixed",
+      reference: "REF123",
+      days: 5,
+      hours: 12,
+      // Add other necessary fields based on your Policy type
+    };
+
+    it("generates correct policy items", () => {
+      const items = generatePolicyItems(mockPolicy);
+
+      expect(items).toEqual([
+        {
+          label: "Name",
+          value: "Test Policy",
+          color: "blue",
+        },
+        {
+          label: "Description",
+          value: "Test description",
+          color: "purple",
+        },
+        {
+          label: "Amount",
+          value: "100",
+          color: "green",
+        },
+        {
+          label: "Charge Type",
+          value: "fixed",
+          color: "orange",
+        },
+        {
+          label: "Reference",
+          value: "REF123",
+          color: "red",
+        },
+        {
+          label: "Days",
+          value: 5,
+          color: "cyan",
+        },
+        {
+          label: "Hours",
+          value: 12,
+          color: "magenta",
+        },
+      ]);
+    });
+
+    it("handles percentage charge type correctly", () => {
+      const percentagePolicy = { ...mockPolicy, chargeType: "percentage" };
+      const items = generatePolicyItems(percentagePolicy);
+
+      const amountItem = items.find((item) => item.label === "Amount");
+      expect(amountItem?.value).toBe("100%");
+    });
+
+    it("handles missing reference fields", () => {
+      const noReferencePolicy = {
+        ...mockPolicy,
+        reference: undefined,
+        days: undefined,
+        hours: undefined,
+      };
+      const items = generatePolicyItems(noReferencePolicy);
+
+      expect(items).toEqual([
+        {
+          label: "Name",
+          value: "Test Policy",
+          color: "blue",
+        },
+        {
+          label: "Description",
+          value: "Test description",
+          color: "purple",
+        },
+        {
+          label: "Amount",
+          value: "100",
+          color: "green",
+        },
+        {
+          label: "Charge Type",
+          value: "fixed",
+          color: "orange",
+        },
       ]);
     });
   });

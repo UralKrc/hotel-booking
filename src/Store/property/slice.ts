@@ -12,7 +12,7 @@ import {
   initializeDataThunk,
 } from "./thunks";
 
-const initialState: PropertyState = {
+export const initialState: PropertyState = {
   properties: [],
   loading: false,
   error: null,

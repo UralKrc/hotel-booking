@@ -20,7 +20,7 @@ const PropertiesPage: React.FC = () => {
   }, [dispatch, properties.length]);
 
   if (loading) return <Loading />;
-  console.log(properties);
+
   return (
     <Container>
       <h1>Properties</h1>

@@ -1,12 +1,8 @@
 import { Row } from "antd";
 import React from "react";
 import { Policy } from "../../../../Types/types";
-import PolicyCard from "../PolicyCard";
-
-interface CancellationPolicyItemsProps {
-  policies: Policy[];
-  onSave: (updatedPolicy: Policy) => void;
-}
+import PolicyCardForm from "../PolicyCardForm";
+import { CancellationPolicyItemsProps } from "./types";
 
 const CancellationPolicyItems: React.FC<CancellationPolicyItemsProps> = ({
   policies,
@@ -16,8 +12,8 @@ const CancellationPolicyItems: React.FC<CancellationPolicyItemsProps> = ({
     <div>
       <h2>Cancellation Policies</h2>
       <Row gutter={[8, 8]}>
-        {policies.map((policy) => (
-          <PolicyCard key={policy.id} policy={policy} onSave={onSave} />
+        {policies.map((policy: Policy) => (
+          <PolicyCardForm key={policy.id} policy={policy} onSave={onSave} />
         ))}
       </Row>
     </div>

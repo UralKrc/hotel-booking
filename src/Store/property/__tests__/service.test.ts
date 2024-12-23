@@ -1,9 +1,9 @@
 import {
-  editProperty,
+  editPoliciesService,
+  editPolicyService,
   fetchPropertyById,
   getProperties,
   loadPropertiesFromLocalStorage,
-  removeProperty,
   savePropertiesToLocalStorage,
 } from "../service";
 import { mockProperties } from "../utils/mockData";
@@ -36,7 +36,7 @@ describe("property service", () => {
 
   it("should fetch property by id", async () => {
     localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
-    const property = await fetchPropertyById("1YK15JGO");
+    const property = await fetchPropertyById(mockProperties[0].property.id);
     expect(property).toEqual(mockProperties[0]);
   });
 
@@ -46,24 +46,44 @@ describe("property service", () => {
     expect(property).toBeNull();
   });
 
-  it("should edit property", async () => {
+  it("should edit policies of a property", async () => {
     localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
-    const updatedProperty = { ...mockProperties[0], name: "Updated Property" };
-    const property = await editProperty(updatedProperty);
+    const updatedPolicies = [
+      { ...mockProperties[0].policies[0], name: "Updated Policy" },
+    ];
+    const result = await editPoliciesService(
+      mockProperties[0].property.id,
+      updatedPolicies
+    );
     const storedProperties = JSON.parse(
       localStorage.getItem("propertiesData") || "null"
     );
-    expect(property).toEqual(updatedProperty);
-    expect(storedProperties[0]).toEqual(updatedProperty);
+    expect(result.policies).toEqual(updatedPolicies);
+    expect(storedProperties[0].policies).toEqual(updatedPolicies);
   });
 
-  it("should remove property", async () => {
+  it("should edit a specific policy", async () => {
     localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
-    const id = await removeProperty(mockProperties[0].id);
+    const updatedPolicy = {
+      ...mockProperties[0].policies[0],
+      name: "Updated Policy",
+    };
+    const result = await editPolicyService(updatedPolicy);
     const storedProperties = JSON.parse(
       localStorage.getItem("propertiesData") || "null"
     );
-    expect(id).toEqual(mockProperties[0].id);
-    expect(storedProperties).toEqual(mockProperties.slice(1));
+    expect(result).toEqual(updatedPolicy);
+    expect(storedProperties[0].policies[0]).toEqual(updatedPolicy);
+  });
+
+  it("should throw error if policy not found for editing", async () => {
+    localStorage.setItem("propertiesData", JSON.stringify(mockProperties));
+    const nonExistentPolicy = {
+      ...mockProperties[0].policies[0],
+      id: "non-existent-id",
+    };
+    await expect(editPolicyService(nonExistentPolicy)).rejects.toThrow(
+      "Policy not found"
+    );
   });
 });

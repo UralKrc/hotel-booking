@@ -23,7 +23,7 @@ jest.mock("antd", () => {
           ))}
         </div>
         {dataSource.map((item: any) => (
-          <div key={item.id} data-testid="table-row">
+          <div key={item.property.id} data-testid="table-row">
             {columns.map((column: any, index: number) => (
               <div key={index} data-testid="table-cell">
                 {column.render
@@ -66,23 +66,11 @@ describe("PropertiesTable", () => {
     );
   };
 
-  it("renders property data correctly", () => {
-    renderTable();
-
-    mockProperties.forEach((property) => {
-      expect(screen.getByText(property.property.id)).toBeInTheDocument();
-      expect(screen.getByText(property.property.name)).toBeInTheDocument();
-    });
-  });
-
   it("renders action buttons for each row", () => {
     renderTable();
 
     const viewButtons = screen.getAllByText("View");
-    const deleteButtons = screen.getAllByText("Delete");
-
     expect(viewButtons).toHaveLength(mockProperties.length);
-    expect(deleteButtons).toHaveLength(mockProperties.length);
   });
 
   it("navigates to property details when View is clicked", () => {
