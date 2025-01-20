@@ -1,18 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit'; // ...
-import createSagaMiddleware from 'redux-saga';
-import PropertyReducer from './property/reducer';
-import rootSaga from './saga';
-
-const sagaMiddleware = createSagaMiddleware();
+import { configureStore } from "@reduxjs/toolkit";
+import propertyReducer from "./property/slice";
 
 const store = configureStore({
-  middleware: [sagaMiddleware],
   reducer: {
-    property: PropertyReducer,
+    property: propertyReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
-
-sagaMiddleware.run(rootSaga);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
